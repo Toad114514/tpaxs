@@ -24,7 +24,7 @@ tps_info(){
 }
 tps_done(){
   datas=$(date "+%H:%M:%S")
-  echo "${G}${BOLD}[OK]${RES}${C} [${datas}]${RES}: $1"
+  echo "${G}${BOLD}[OK ]${RES}${C} [${datas}]${RES}: $1"
 }
 R=$(printf '\033[31m')
 G=$(printf '\033[32m')

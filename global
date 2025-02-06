@@ -1,0 +1,31 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+tps_version="v0.01"
+users=$(whoami)
+work_path=$PREFIX/lib/tpaxs
+LANGUAGE=$(cat $work_path/config/lang)
+#tout
+tps_err(){
+  datas=$(date "+%H:%M:%S")
+  echo "${R}${BOLD}[ERR]${RES}${C} [${datas}]${RES}: $1"
+}
+tps_warm(){
+  datas=$(date "+%H:%M:%S")
+  echo "${Y}${BOLD}[WRM]${RES}${C} [${datas}]${RES}: $1"
+}
+tps_info(){
+  datas=$(date "+%H:%M:%S")
+  echo "${B}${BOLD}[IFO]${RES}${C} [${datas}]${RES}: $1"
+}
+tps_done(){
+  datas=$(date "+%H:%M:%S")
+  echo "${G}${BOLD}[OK]${RES}${C} [${datas}]${RES}: $1"
+}
+R=$(printf '\033[31m')
+G=$(printf '\033[32m')
+Y=$(printf '\033[33m')
+B=$(printf '\033[34m')
+P=$(printf '\033[35m')
+C=$(printf '\033[36m')
+RES=$(printf '\033[0m')
+BOLD=$(printf '\033[1m')

@@ -1,4 +1,4 @@
-source sout.sh
+source $PREFIX/lib/tpaxs/global
 tps_info "我是信息"
 tps_warm "注意low炮"
 tps_done "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK了"

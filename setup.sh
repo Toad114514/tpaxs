@@ -63,6 +63,7 @@ setup(){
   echo "${G}获取仓库...${RES}"
   #git clone https://github.com/toad114514/tpaxs $PREFIX/lib/tpaxs
   # bash
+  echo "${G}创建软链接...${RES}"
   ln -sf $tpaxs_path/main.sh $PREFIX/bin/tpaxs
   chmod +x $tpaxs_path/main.sh
 }

@@ -1,10 +1,15 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+# vars
 tps_version="v0.01"
 users=$(whoami)
 work_path=$PREFIX/lib/tpaxs
 LANGUAGE=$(cat $work_path/config/lang)
-#tout
+# out function
+apt_echo(){
+  echo ${R}apt ${B}install ${Y}$1
+  apt install $1 -y
+}
 tps_err(){
   datas=$(date "+%H:%M:%S")
   echo "${R}${BOLD}[ERR]${RES}${C} [${datas}]${RES}: $1"

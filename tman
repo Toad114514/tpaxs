@@ -1,0 +1,30 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+source $PREFIX/lib/tpaxs/global
+tman_version=dev-0.31
+
+main(){
+for f in $(find $work_path/tools -type d)
+do
+  if [ "$f" = "$work_path/tools" ]; then
+    :
+  else
+    local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
+    if [ "$coms" = "$1" ];then
+      if [ ! -f $f/readme.tman ];then
+        tps_err "找不到 $f/readme.tman: 没有这个文件"
+      else
+        local name=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'name'/{print $2;exit}' $f/info.ini)
+        local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
+        local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
+        local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
+        local readme=$(cat $f/readme.tman)
+        echo "        ${Y}${name} [${G}${ver}] ${B}帮助向导${RES}"
+        echo -e ${readme}
+      fi
+    fi
+  fi
+done
+}
+
+main $1

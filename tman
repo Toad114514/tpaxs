@@ -20,7 +20,7 @@ do
         local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
         local readme=$(cat $f/readme.tman)
         echo "        ${Y}${name} [${G}${ver}] ${B}帮助向导${RES}"
-        echo -e ${readme}
+        cat $f/readme.tman
       fi
     fi
   fi

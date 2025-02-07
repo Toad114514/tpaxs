@@ -65,7 +65,9 @@ setup(){
   # bash
   echo "${G}创建软链接...${RES}"
   ln -sf $tpaxs_path/main.sh $PREFIX/bin/tpaxs
+  ln -sf $tpaxs_path/main.sh $PREFIX/bin/tps
   chmod +x $tpaxs_path/main.sh
+  ln -sf $tpaxs_path/tman $PREFIX/bin/tman
 }
 
 config(){
@@ -88,8 +90,10 @@ setup_banner
 setup_info
 config
 echo "
+ ====================
  ${G}tPaxs 安装完成！${RES}
- 使用 tpaxs 可进入工具
+ 使用 tpaxs 可进入框架
+ 也可以使用简写 tps
  ====================
  祝您使用愉快！
  ====================

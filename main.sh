@@ -162,7 +162,7 @@ command_input(){
 
 
 if [ ! -z "$1" ];then
-  echo "tPaxs Framework ${tps_version}"
+  #echo "tPaxs Framework ${tps_version}"
   case $1 in
     "exit" | "quit") tps_err "你这个喜人发瘟是不是你那个脑压到那条痴线才执行这个命令的哇" && exit 0;;
     "tman") source $work_path/tman $2 && exit 0;;

@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 source $PREFIX/lib/tpaxs/global
+source $work_path/tools/tdesking/scripts.sh
 banner(){
   echo "古希腊掌管 Termux Desktop 的神"
 }
@@ -11,6 +12,7 @@ check_x11(){
   fi
 }
 
+# INSTALL
 install_xfce4(){
   read -p "你想要安装${Y}精简版本${RES}吗？[y(es)/n(o)/e(xit)]" select
   case "$select" in
@@ -48,12 +50,21 @@ install_lxqt(){
   sleep 2
 }
 
+
+
 tx11(){
   pkg list-installed|grep termux-x11-nightly &>/dev/null
   if [ ! $? = 0 ];then
     apt_echo termux-x11-nightly
   fi
   echo "${G}Termux-x11 settings"
+  echo "${RES}1) 使用传统绘图 (兼容老年机)"
+  echo "99) 返回"
+  read -p "选择：" sel
+  case $sel in
+    "1") tx11_legacy ;;
+    "99") : ;;
+  esac
 }
 
 input(){
@@ -61,7 +72,7 @@ input(){
   echo "2) 安装 mate"
   echo "3) 安装 lxqt"
   echo "4) 部署 tx11"
-  echo "5) 部署 vncserver"
+  echo "5) 部署显卡加速 virglrender"
   echo "6) 安装常用软件"
   echo "7) 解决 Android 12 signal 9 问题"
   echo "8) 一条龙服务"
@@ -70,7 +81,6 @@ input(){
   echo "99) 退出"
   read -p "请做出你的选择：" select
 }
-
 check_x11
 banner
 while [ 1 ]
@@ -81,7 +91,7 @@ case $select in
     "2") install_mate ;;
     "3") install_lxqt ;;
     "4") tx11 ;;
-    "5") vncserver ;;
+    "5") echo "不打算搞" ;;
     "6") echo "我还没有做好" ;;
     "7") echo "我还没有做好" ;;
     "8") onedragon ;;

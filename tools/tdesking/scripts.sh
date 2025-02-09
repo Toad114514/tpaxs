@@ -32,7 +32,7 @@ startup(){
                   write=$(printf "# termux-x11 xfce4 script by toad\ntermux-x11 :0 -legacy-drawing &\nvirgl_test_server_android &\nDISPLAY=:0 startxfce4")
                   echo $write > $PREFIX/bin/xfce4
                   chmod +x $PREFIX/bin/xfce4
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 xfce4 启动"
                   sleep 0.8
                   ;;
                 "n" | "no")
@@ -40,7 +40,7 @@ startup(){
                   write=$(printf "# termux-x11 xfce4 script by toad\ntermux-x11 :0 &\nvirgl_test_server_android &\nDISPLAY=:0 startxfce4")
                   echo $write > $PREFIX/bin/xfce4
                   chmod +x $PREFIX/bin/xfce4
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 xfce4 启动"
                   sleep 0.8
                   ;;
               esac
@@ -52,7 +52,7 @@ startup(){
                   write=$(printf "# termux-x11 xfce4 script by toad\ntermux-x11 :0 -legacy-drawing &\n\nDISPLAY=:0 startxfce4")
                   echo $write > $PREFIX/bin/xfce4
                   chmod +x $PREFIX/bin/xfce4
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入输入 xfce4 启动"
                   sleep 0.8
                   ;;
                 "n" | "no")
@@ -60,7 +60,7 @@ startup(){
                   write=$(printf "# termux-x11 xfce4 script by toad\ntermux-x11 :0 &\n\nDISPLAY=:0 startxfce4")
                   echo $write > $PREFIX/bin/xfce4
                   chmod +x $PREFIX/bin/xfce4
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 xfce4 启动"
                   sleep 0.8
                   ;;
               esac
@@ -72,7 +72,7 @@ startup(){
                 write=$(printf "# termux-x11 xfce4 script by toad\ntermux-x11 :0 -legacy-drawing &\n\nDISPLAY=:0 startxfce4")
                 echo $write > $PREFIX/bin/xfce4
                 chmod +x $PREFIX/bin/xfce4
-                echo "脚本创建完成！"
+                echo "脚本创建完成！在终端输入 xfce4 启动"
                 sleep 0.8
                 ;;
               "n" | "no")
@@ -80,7 +80,7 @@ startup(){
                 write=$(printf "# termux-x11 xfce4 script by toad\ntermux-x11 :0 &\n\nDISPLAY=:0 startxfce4")
                 echo $write > $PREFIX/bin/xfce4
                 chmod +x $PREFIX/bin/xfce4
-                echo "脚本创建完成！"
+                echo "脚本创建完成！在终端输入 xfce4 启动"
                 sleep 0.8
                 ;;
             esac
@@ -105,7 +105,7 @@ startup(){
                   write=$(printf "# termux-x11 mate script by toad\ntermux-x11 :0 -legacy-drawing &\nvirgl_test_server_android &\nDISPLAY=:0 mate-session")
                   echo $write > $PREFIX/bin/mate
                   chmod +x $PREFIX/bin/mate
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 mate 启动"
                   sleep 0.8
                   ;;
                 "n" | "no")
@@ -113,7 +113,7 @@ startup(){
                   write=$(printf "# termux-x11 mate script by toad\ntermux-x11 :0 &\nvirgl_test_server_android &\nDISPLAY=:0 mate-session")
                   echo $write > $PREFIX/bin/mate
                   chmod +x $PREFIX/bin/mate
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 mate 启动"
                   sleep 0.8
                   ;;
               esac
@@ -125,7 +125,7 @@ startup(){
                   write=$(printf "# termux-x11 mate script by toad\ntermux-x11 :0 -legacy-drawing &\n\nDISPLAY=:0 mate-session")
                   echo $write > $PREFIX/bin/mate
                   chmod +x $PREFIX/bin/mate
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 mate 启动"
                   sleep 0.8
                   ;;
                 "n" | "no")
@@ -133,7 +133,7 @@ startup(){
                   write=$(printf "# termux-x11 mate script by toad\ntermux-x11 :0 &\n\nDISPLAY=:0 mate-session")
                   echo $write > $PREFIX/bin/mate
                   chmod +x $PREFIX/bin/mate
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 mate 启动"
                   sleep 0.8
                   ;;
               esac
@@ -145,7 +145,7 @@ startup(){
                 write=$(printf "# termux-x11 mate script by toad\ntermux-x11 :0 -legacy-drawing &\n\nDISPLAY=:0 mate-session")
                 echo $write > $PREFIX/bin/mate
                 chmod +x $PREFIX/bin/mate
-                echo "脚本创建完成！"
+                echo "脚本创建完成！在终端输入 mate 启动"
                 sleep 0.8
                 ;;
               "n" | "no")
@@ -153,7 +153,7 @@ startup(){
                 write=$(printf "# termux-x11 mate cript by toad\ntermux-x11 :0 &\n\nDISPLAY=:0 mate-session")
                 echo $write > $PREFIX/bin/mate
                 chmod +x $PREFIX/bin/mate
-                echo "脚本创建完成！"
+                echo "脚本创建完成！在终端输入 mate 启动"
                 sleep 0.8
                 ;;
             esac
@@ -178,7 +178,7 @@ startup(){
                   write=$(printf "# termux-x11 lxqt script by toad\ntermux-x11 :0 -legacy-drawing &\nvirgl_test_server_android &\nDISPLAY=:0 startlxqt")
                   echo $write > $PREFIX/bin/lxqt
                   chmod +x $PREFIX/bin/lxqt
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 lxqt 启动"
                   sleep 0.8
                   ;;
                 "n" | "no")
@@ -186,7 +186,7 @@ startup(){
                   write=$(printf "# termux-x11 lxqt script by toad\ntermux-x11 :0 &\nvirgl_test_server_android &\nDISPLAY=:0 lxqt")
                   echo $write > $PREFIX/bin/lxqt
                   chmod +x $PREFIX/bin/lxqt
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 lxqt 启动"
                   sleep 0.8
                   ;;
               esac
@@ -198,7 +198,7 @@ startup(){
                   write=$(printf "# termux-x11 lxqt script by toad\ntermux-x11 :0 -legacy-drawing &\n\nDISPLAY=:0 startlxqt")
                   echo $write > $PREFIX/bin/lxqt
                   chmod +x $PREFIX/bin/lxqt
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 lxqt 启动"
                   sleep 0.8
                   ;;
                 "n" | "no")
@@ -206,7 +206,7 @@ startup(){
                   write=$(printf "# termux-x11 lxqt script by toad\ntermux-x11 :0 &\n\nDISPLAY=:0 startlxqt")
                   echo $write > $PREFIX/bin/lxqt
                   chmod +x $PREFIX/bin/lxqt
-                  echo "脚本创建完成！"
+                  echo "脚本创建完成！在终端输入 lxqt 启动"
                   sleep 0.8
                   ;;
               esac
@@ -218,7 +218,7 @@ startup(){
                 write=$(printf "# termux-x11 lxqt script by toad\ntermux-x11 :0 -legacy-drawing &\n\nDISPLAY=:0 startlxqt")
                 echo $write > $PREFIX/bin/lxqt
                 chmod +x $PREFIX/bin/lxqt
-                echo "脚本创建完成！"
+                echo "脚本创建完成！在终端输入 lxqt 启动"
                 sleep 0.8
                 ;;
               "n" | "no")
@@ -226,7 +226,7 @@ startup(){
                 write=$(printf "# termux-x11 lxqt cript by toad\ntermux-x11 :0 &\n\nDISPLAY=:0 startlxqt")
                 echo $write > $PREFIX/bin/lxqt
                 chmod +x $PREFIX/bin/lxqt
-                echo "脚本创建完成！"
+                echo "脚本创建完成！在终端输入 lxqt 启动"
                 sleep 0.8
                 ;;
             esac

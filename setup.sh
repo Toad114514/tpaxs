@@ -67,7 +67,6 @@ setup(){
   ln -sf $tpaxs_path/main.sh $PREFIX/bin/tpaxs
   ln -sf $tpaxs_path/main.sh $PREFIX/bin/tps
   chmod +x $tpaxs_path/main.sh
-  ln -sf $tpaxs_path/tman $PREFIX/bin/tman
 }
 
 config(){

@@ -132,7 +132,6 @@ help(){
       echo "=============================="
       echo "help - 显示框架提供的基础命令"
       echo "ls/list - 列出所有可用的工具功能信息及对应命令"
-      echo "tman <工具对应命令> - 查看对应工具的 readme.tman (如果有)"
       echo "exit/quit - 退出 tPaxs 框架"
       echo "=============================="
       echo "tips: 你可以直接在终端运行tPaxs命令或者工具对应命令，如我想要查看工具列表：tpaxs ls"
@@ -142,7 +141,6 @@ help(){
       echo "=============================="
       echo "help - Show all command of framework"
       echo "ls/list - List all available tool feature information and corresponding commands"
-      echo "tman <command of tools> - Check the readme.tman of the corresponding tool (if have)."
       echo "exit/quit - Exit tPaxs framework"
       echo "=============================="
       echo "tips: You can run the tPaxs command or the tool-specific command directly from the terminal, such as if I want to see the list of tools: tpaxs ls"
@@ -155,7 +153,6 @@ command_input(){
     "help") help ;;
     "ls" | "list") help_find ;;
     "exit" | "quit") exit_look ;;
-    "tman") source $work_path/tman $2 ;;
     *) opentools $1 ;;
   esac
 }
@@ -165,7 +162,6 @@ if [ ! -z "$1" ];then
   #echo "tPaxs Framework ${tps_version}"
   case $1 in
     "exit" | "quit") tps_err "你这个喜人发瘟是不是你那个脑压到那条痴线才执行这个命令的哇" && exit 0;;
-    "tman") source $work_path/tman $2 && exit 0;;
     *) command_input $1 && exit 0 ;;
   esac
 fi

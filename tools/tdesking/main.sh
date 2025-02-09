@@ -1,6 +1,9 @@
 #!/data/data/com.termux/files/usr/bin/bash
 source $PREFIX/lib/tpaxs/global
 source $work_path/tools/tdesking/scripts.sh
+
+tdking_path=$work_path/tools/tdesking
+bin_path=$PREFIX/usr/bin
 banner(){
   echo "古希腊掌管 Termux Desktop 的神"
 }
@@ -50,7 +53,31 @@ install_lxqt(){
   sleep 2
 }
 
-
+tx11_legacy(){
+  read -p "使用传统绘图吗？（兼容老年机例如oppoa5，设置将应用到全部已创建脚本）[y(es)/n(o)]: " sel
+  case $sel in
+    "y" | "yes")
+      if [ -f $bin_path/xfce4 ];then
+        sed -i '2s/.*/termux-x11 :0 -legacy' $bin_path/xfce4
+      fi
+      if [ -f $bin_path/mate ];then
+        sed -i '2s/.*/termux-x11 :0 -legacy' $bin_path/mate
+      fi
+      if [ -f $bin_path/lxqt ];then
+        sed -i '2s/.*/termux-x11 :0 -legacy' $bin_path/lxqt
+      fi
+    "n" | "no")
+      if [ -f $bin_path/xfce4 ];then
+        sed -i '2s/.*/termux-x11 :0' $bin_path/xfce4
+      fi
+      if [ -f $bin_path/mate ];then
+        sed -i '2s/.*/termux-x11 :0' $bin_path/mate
+      fi
+      if [ -f $bin_path/lxqt ];then
+        sed -i '2s/.*/termux-x11 :0' $bin_path/lxqt
+      fi
+  esac
+}
 
 tx11(){
   pkg list-installed|grep termux-x11-nightly &>/dev/null

@@ -108,6 +108,32 @@ input(){
   echo "99) 退出"
   read -p "请做出你的选择：" select
 }
+
+onedragon(){
+  echo "One-Dragon 一条龙服务"
+  echo "===================="
+  echo "你要装："
+  echo "1) 安装 xfce4"
+  echo "2) 安装 mate"
+  echo "3) 安装 lxqt"
+  echo "99) 不用搞了"
+  read -p "请做出你的选择：" select
+  local leave=0
+  case $select in
+    "1") install_xfce4 ;;
+    "2") install_mate ;;
+    "3") install_lxqt ;;
+    "4") leave=1 ;;
+  esac
+  if [ $leave -eq 0 ];then
+    startup
+    echo "====================="
+    echo "One-Dragon 一条龙服务"
+    echo "   已完成任务，正在返回..."
+    echo "====================="
+  fi
+}
+
 check_x11
 banner
 while [ 1 ]

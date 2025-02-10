@@ -7,8 +7,8 @@ work_path=$PREFIX/lib/tpaxs
 LANGUAGE=$(cat $work_path/config/lang)
 # out function
 apt_echo(){
-  echo ${R}apt ${B}install ${Y}$1
-  apt install $1 -y
+  echo ${R}apt ${B}install ${Y}$1${RES}
+  apt install -y $1 
 }
 tps_err(){
   datas=$(date "+%H:%M:%S")

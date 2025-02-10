@@ -61,7 +61,22 @@ setup(){
   echo "${B}选择仓库拉取地址"
   
   echo "${G}获取仓库...${RES}"
-  #git clone https://github.com/toad114514/tpaxs $PREFIX/lib/tpaxs
+  echo "选择从哪里 clone 仓库"
+  echo "在国内的用 gitee，国外用 github"
+  case $LANGUAGE in
+    "zh-CN") echo "${Y}根据语言设置，默认使用 gitee${RES}" ;;
+    "en-US") echo "${Y}According to the language setting, it is used github by default${RES}"
+  esac
+  read -p "[${R}gitee${RES}/${Y}github${RES}]" sel
+  case $sel in
+    "gitee") git clone https://gitee.com/toadstool/tpaxs --depth=1 $PREFIX/lib/tpaxs ;;
+    "github") git clone https://github.com/toad114514/tpaxs --depth=1 $PREFIX/lib/tpaxs ;;
+    *)
+      case $LANGUAGE in
+        "zh-CN") git clone https://gitee.com/toadstool/tpaxs --depth=1 $PREFIX/lib/tpaxs ;;
+        "en-US" | *) git clone https://github.com/toad114514/tpaxs --depth=1 $PREFIX/lib/tpaxs ;;
+      esac
+  esac
   # bash
   echo "${G}创建软链接...${RES}"
   ln -sf $tpaxs_path/main.sh $PREFIX/bin/tpaxs

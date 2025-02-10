@@ -49,7 +49,7 @@ tps_check(){
 
 help_find(){
   echo "tPaxs 提供的所有功能"
-  echo "${G}绿色部分为对应启动命令 ${Y}黄色是名称 ${B}蓝色是版本 ${R}红色是作者名${RES}"
+  echo "${G}绿色部分为工具id 输入对应id启动工具"
   echo
   local canuse=0
   local cnotuse=0
@@ -76,9 +76,8 @@ help_find(){
           local name=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'name'/{print $2;exit}' $f/info.ini)
           local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
           local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
-          local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
           local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
-          echo "${G}${BOLD}$coms: ${Y}$name${B}[$ver] by ${R}${author}${RES}"
+          echo "${G}${BOLD}$coms: ${Y}$name${B}[$ver]${RES}"
           echo "   ${desc}"
           canuse=`expr $canuse + 1`
         fi
@@ -125,22 +124,53 @@ opentools(){
   fi
 }
 
+showtools(){
+  for f in $(find $work_path/tools -type d)
+  do
+    if [ "$f" = "$work_path/tools" ];then
+      :
+    else
+      local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
+      if [ "$coms" = "$1" ];then
+        if [ -f $f/info.ini ];then
+          local name=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'name'/{print $2;exit}' $f/info.ini)
+          local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
+          local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
+          local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
+          local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
+          case $LANGUAGE in
+            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${RES}描述: $desc" ;;
+            "en-US" | "en_US" | *)  printf "${G}tools ID $coms\n${Y}Name: $name\n${B}Version: $ver\n${R}Author: $author\n${RES}Description: $desc" ;;
+          esac
+        else
+          case $LANGUAGE in
+            "zh-CN" | "zh_CN") tps_err "找不到 $f 的 info.ini 文件"
+            "en-US" | "en_US" | *) tps_err "$f/info.ini not found"
+          esac
+        fi
+      fi
+    fi
+  done
+}
+
 help(){
   case $LANGUAGE in
     "zh-CN")
       echo "tPaxs 框架 ${tps_version}"
       echo "=============================="
       echo "help - 显示框架提供的基础命令"
-      echo "ls/list - 列出所有可用的工具功能信息及对应命令"
+      echo "ls/list - 列出所有可用的工具功能信息及对应id"
+      echo "show <工具ID> - 显示某个工具的详细信息"
       echo "exit/quit - 退出 tPaxs 框架"
       echo "=============================="
-      echo "tips: 你可以直接在终端运行tPaxs命令或者工具对应命令，如我想要查看工具列表：tpaxs ls"
+      echo "tips: 你可以直接在终端运行tPaxs命令或者工具对应id，如我想要查看工具列表：tpaxs ls"
       ;;
     "en-US" | *)
       echo "tPaxs framework ${tps_version}"
       echo "=============================="
       echo "help - Show all command of framework"
       echo "ls/list - List all available tool feature information and corresponding commands"
+      echo "show <toolID> - Display detailed information of a certain tool"
       echo "exit/quit - Exit tPaxs framework"
       echo "=============================="
       echo "tips: You can run the tPaxs command or the tool-specific command directly from the terminal, such as if I want to see the list of tools: tpaxs ls"
@@ -152,6 +182,7 @@ command_input(){
   case $1 in
     "help") help ;;
     "ls" | "list") help_find ;;
+    "show") showtools ;;
     "exit" | "quit") exit_look ;;
     *) opentools $1 ;;
   esac

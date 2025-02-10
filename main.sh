@@ -48,8 +48,16 @@ tps_check(){
 }
 
 help_find(){
-  echo "tPaxs 提供的所有功能"
-  echo "${G}绿色部分为工具id 输入对应id启动工具"
+  case $LANGUAGE in
+   "zh-CN")
+     echo "tPaxs 所有工具id"
+     echo "${G}绿色部分为工具id 输入对应id启动工具"
+     ;;
+   "en-US" | *)
+     echo "tPaxs All tools ID"
+     echo "${G}Green is the tool ID, Input tool ID to startup it"
+     ;;
+  esac
   echo
   local canuse=0
   local cnotuse=0
@@ -85,16 +93,24 @@ help_find(){
     fi
   done
   echo
-  echo "${Y}可用功能总共 ${G}$canuse ${Y}个${RES}"
+  case $LANGUAGE in
+    "zh-CN") echo "${Y}总共 ${G}$canuse ${Y}个工具${RES}" ;;
+    "en-US" | *) echo "${Y}Total ${G}$canuse ${Y}tools${RES}"
   # list_warning
   for f in ${noini[@]}
   do
     local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
-    tps_warm "找不到 $f 文件夹对应的配置文件，但你仍可使用 $coms 命令"
+    case $LANGUAGE in
+      "zh-CN") tps_warm "找不到 $f 文件夹对应的 info.ini，但你仍可使用 $coms 命令" ;;
+      "en-US" | *) tps_warm "info.ini file corresponding to the $f folder cannot be found, but you can still use the $coms startup it" ;;
+    esac
   done
   for f in ${nomain[@]}
   do
-    tps_err "找不到 $f 的主要脚本文件"
+    case $LANGUAGE in
+      "zh-CN") tps_err "找不到 $f 的主要脚本文件(main.sh)" ;;
+      "en-US") tps_err "cannot found $f of the main script(main.sh)" ;;
+    esac
   done
 }
 

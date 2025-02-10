@@ -12,3 +12,4 @@ source <(curl -fsSL https://github.com/toad114514/tpaxs/raw/dev/setup.sh)
 ## 参与开发工具
 详细看 [dev.md](docs/dev.md)
 ## Star History
+没搞

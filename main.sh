@@ -139,13 +139,13 @@ showtools(){
           local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
           local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
           case $LANGUAGE in
-            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${RES}描述: $desc" ;;
-            "en-US" | "en_US" | *)  printf "${G}tools ID $coms\n${Y}Name: $name\n${B}Version: $ver\n${R}Author: $author\n${RES}Description: $desc" ;;
+            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${RES}描述: $desc\n" ;;
+            "en-US" | "en_US" | *)  printf "${G}tools ID $coms\n${Y}Name: $name\n${B}Version: $ver\n${R}Author: $author\n${RES}Description: $desc\n" ;;
           esac
         else
           case $LANGUAGE in
-            "zh-CN" | "zh_CN") tps_err "找不到 $f 的 info.ini 文件"
-            "en-US" | "en_US" | *) tps_err "$f/info.ini not found"
+            "zh-CN" | "zh_CN") tps_err "找不到 $f 的 info.ini 文件" ;;
+            "en-US" | "en_US" | *) tps_err "$f/info.ini not found" ;;
           esac
         fi
       fi
@@ -182,7 +182,7 @@ command_input(){
   case $1 in
     "help") help ;;
     "ls" | "list") help_find ;;
-    "show") showtools ;;
+    "show") showtools $2 ;;
     "exit" | "quit") exit_look ;;
     *) opentools $1 ;;
   esac
@@ -193,7 +193,7 @@ if [ ! -z "$1" ];then
   #echo "tPaxs Framework ${tps_version}"
   case $1 in
     "exit" | "quit") tps_err "你这个喜人发瘟是不是你那个脑压到那条痴线才执行这个命令的哇" && exit 0;;
-    *) command_input $1 && exit 0 ;;
+    *) command_input $1 $2 $3 $4 $5 $6 $7 $8 $9 && exit 0 ;;
   esac
 fi
 tps_banner

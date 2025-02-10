@@ -95,7 +95,8 @@ help_find(){
   echo
   case $LANGUAGE in
     "zh-CN") echo "${Y}总共 ${G}$canuse ${Y}个工具${RES}" ;;
-    "en-US" | *) echo "${Y}Total ${G}$canuse ${Y}tools${RES}"
+    "en-US" | *) echo "${Y}Total ${G}$canuse ${Y}tools${RES}" ;;
+  esac
   # list_warning
   for f in ${noini[@]}
   do

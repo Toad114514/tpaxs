@@ -8,7 +8,7 @@ banner(){
   echo "Metasploit 安装向导"
 }
 startup_ok(){
-  echo "================================"
+  echo "===================================="
   echo "这将${Y}全新安装 Metasploit 6${RES}，你确定吗？"
   echo "=============== [${Y}y(es) ${RES}/ ${R}n(o)${RES}] ====="
   read -p "INPUT: " sel

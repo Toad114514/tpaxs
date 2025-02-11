@@ -129,7 +129,20 @@ opentools(){
           tps_yestofind="91lztdtm"
           break 1
         else
-          bash $f/main.sh
+          # 检测依赖
+          local depend=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'depend'/{print $2;exit}' $f/info.ini)
+          if [ -z $depend ];then
+            source $f/main.sh
+          else
+            local depends=(${depend//,/ })
+            for package in ${depends[@]};do
+              pkg list-installed|grep $package &>/dev/null
+              if [ ! $? = 0 ];then
+                apt_echo $package
+              fi
+            done
+            source $f/main.sh
+          fi
           tps_yestofind="91lztdtm"
           break 1
         fi
@@ -154,10 +167,11 @@ showtools(){
           local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
           local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
           local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
+          local depend=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
           local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
           case $LANGUAGE in
-            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${RES}描述: $desc\n" ;;
-            "en-US" | "en_US" | *)  printf "${G}tools ID $coms\n${Y}Name: $name\n${B}Version: $ver\n${R}Author: $author\n${RES}Description: $desc\n" ;;
+            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${C}所需依赖：: $desc\n${RES}描述：\n" ;;
+            "en-US" | "en_US" | *)  printf "${G}tools ID $coms\n${Y}Name: $name\n${B}Version: $ver\n${R}Author: $author\n${C}Depends: $depend\n${RES}Description: $desc\n" ;;
           esac
         else
           case $LANGUAGE in

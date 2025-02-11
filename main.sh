@@ -167,10 +167,10 @@ showtools(){
           local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
           local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
           local author=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'author'/{print $2;exit}' $f/info.ini)
-          local depend=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
+          local depend=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'depend'/{print $2;exit}' $f/info.ini)
           local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
           case $LANGUAGE in
-            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${C}所需依赖：: $desc\n${RES}描述：\n" ;;
+            "zh-CN" | "zh_CN") printf "${G}工具id: $coms\n${Y}名称: $name\n${B}版本: $ver\n${R}作者: $author\n${C}所需依赖：$depend\n${RES}描述：$desc\n" ;;
             "en-US" | "en_US" | *)  printf "${G}tools ID $coms\n${Y}Name: $name\n${B}Version: $ver\n${R}Author: $author\n${C}Depends: $depend\n${RES}Description: $desc\n" ;;
           esac
         else

@@ -8,13 +8,6 @@ banner(){
   echo "古希腊掌管 Termux Desktop 的神"
 }
 
-check_x11(){
-  pkg list-installed|grep x11-repo &>/dev/null
-  if [ ! $? -eq 0 ];then
-    apt_echo x11-repo
-  fi
-}
-
 # INSTALL
 install_xfce4(){
   read -p "你想要安装${Y}精简版本${RES}吗？[y(es)/n(o)/e(xit)]" select
@@ -134,7 +127,6 @@ onedragon(){
   fi
 }
 
-check_x11
 banner
 while [ 1 ]
 do

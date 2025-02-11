@@ -31,6 +31,7 @@ Write the basic information about your tool in the `info.ini` file. Here's a tem
      desc=This tool simply outputs "helloworld"
      ver=v11.45
      author=toad114514
+     depend=git,wget,python
      ```
 
 6. Develop `main.sh`:

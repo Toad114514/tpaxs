@@ -21,6 +21,7 @@ name=hello
 desc=我是描述，这个工具只会输出helloworld
 ver=v11.45
 author=toad114514
+depend=git,wget,python
 ```
 6. main.sh 是你的工具主文件，输入你的工具的id启动后第一次启动就是该文件。接下来你可以编写脚本了  
  - 注意：请在脚本第一行必须声明要使用的终端，必须是 bash。如下：

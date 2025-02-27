@@ -30,3 +30,11 @@
 ### tps_done
 ***上同***
 格式如下：\[OK \] \[hh:mm:ss\] \<内容\>
+
+## 未测试的函数
+### iniRead
+*参数：\[file] \[section] \[key]*
+读取某ini文件 section 里 key 对应的值
+### iniWrite
+*参数：\[file] \[section] \[key] \[val]*
+写入/修改某ini文件 section 里的 key 对应的值

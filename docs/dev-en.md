@@ -29,6 +29,7 @@ Write the basic information about your tool in the `info.ini` file. Here's a tem
      [tpaxs]
      name=hello
      desc=This tool simply outputs "helloworld"
+     desc[en]=The desc for English
      ver=v11.45
      author=toad114514
      depend=git,wget,python

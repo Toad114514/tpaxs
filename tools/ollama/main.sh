@@ -10,7 +10,12 @@ ollama_repo=https://github.com/ollama/ollama.git
 state(){
   printf "ollama 状态: "
   if [ -f $ollama_path/ollama ];then
-    printf "${G}已编译完成\n"
+    printf "${G}已完成编译 |"
+    if [ -z "$(pgrep ollama)" ];then
+      printf "${G} 服务已启动\n"
+    else
+      printf "${R} 服务未启动\n"
+    fi
   else
     printf "${R}未编译\n"
   fi
@@ -52,6 +57,14 @@ esac
 }
 
 ollama_start(){
+  if [ -z "$(pgrep ollama)" ];then
+    tps_err "ollama 服务未运行，请先运行 ollama 服务。"
+  else
+    ollama_startlist
+  fi
+}
+
+ollama_startlist(){
   echo "[       请选择你的AI大模型        ]"
   echo "=============================="
   echo "1. Deepseek-R1 模型 (1.5B) ${G}[烂机子适用]${RES}"
@@ -75,19 +88,28 @@ main(){
   state
   echo "====================="
   echo "1. 编译(安装) ollama"
-  echo "2. 启动 ollama 模型"
+  echo "2. 启动 ollama 服务"
+  echo "3. 运行 ollama 模型"
   echo "99. 退出"
   echo "====================="
   read -p "输入：" sel
 }
 
-ollama serve &>/dev/null
 while [ 1 ]
 do
 main
 case "$sel" in
  "1") ollama_setup ;;
- "2") ollama_start ;;
+ "2")
+   ollama serve &>/dev/null &
+   sleep 2
+   if [ -z "$(pgrep ollama)" ];then
+     tps_err "ollama 服务未正常启动。请退出工具手动在终端运行 ollama serve 排除错误。"
+   else
+     tps_info "ollama 服务已启动。PID: $(pgrep ollama)"
+   fi
+   ;;
+ "3") ollama_start ;;
  "99")
    pkill ollama
    break

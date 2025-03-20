@@ -82,7 +82,17 @@ help_find(){
           indexofini=`expr $indexofini + 1`
         else
           local name=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'name'/{print $2;exit}' $f/info.ini)
-          local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
+          case $LANGUAGE in
+            "zh-CN" | "zh_CN")
+              local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
+            ;;
+            "en-US" | "en_US" | *)
+              local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'descEN'/{print $2;exit}' $f/info.ini)
+              if [ -z "$desc" ];then
+                local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
+              fi
+            ;;
+          esac   
           local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
           local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
           echo "${G}${BOLD}$coms: ${Y}$name${B}[$ver]${RES}"

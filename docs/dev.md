@@ -19,7 +19,7 @@ tPaxs 根目录
 [tpaxs]
 name=hello
 desc=我是描述，这个工具只会输出helloworld
-desc[en]=The desc for English
+descEN=The desc for English
 ver=v11.45
 author=toad114514
 depend=git,wget,python

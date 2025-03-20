@@ -165,7 +165,7 @@ showtools(){
         if [ -f $f/info.ini ];then
           local name=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'name'/{print $2;exit}' $f/info.ini)
           local desc=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc'/{print $2;exit}' $f/info.ini)
-          local desc_en=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'desc[en]'/{print $2;exit}' $f/info.ini)
+          local desc_en=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'descEN'/{print $2;exit}' $f/info.ini)
           if [ -z "$desc_en" ];then
             local $desc_en=$(echo $desc)
           fi

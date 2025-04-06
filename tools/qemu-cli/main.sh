@@ -1,0 +1,87 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# QemuCli
+# ByToad114
+# 更新日志：
+#  v0.1 完成基础 qemu 安装及检测功能（提示和报错都有模仿星野的说话语气呢~）
+
+source $PREFIX/lib/tpaxs/global
+
+qcli_ver="v0.1"
+qcli_status="dev"
+
+ins_qemu(){
+  param=$1
+  clear
+  echo "================================ ${G}安装 Qemu${RES} ======"
+  echo "选择一个 Qemu 软件包来安装，主要区别在于它们模拟的架构关系，架构的选择对应你要安装的系统。例如要装 64 位系统选择 x86-64，32 位则是 i386，请根据您要装的系统选择对应架构。"
+  echo "1) qemu-system-i386-headless ${G}(i386 架构)${RES}"
+  echo "99) 不安装任何版本的 Qemu [默认选项]"
+  echo "================================================="
+  read -p "输入序号或对应架构名安装对应 Qemu 软件包：" package
+  case $package in
+    "1"|"x86-64") 
+      apt_echo qemu-system-i386-headless
+      apterr=$?
+      ;;
+    "99" | *)
+      case $param in
+        "noins")
+          echo "${R}由于您没有安装任何的 Qemu 软件包，后端由 Qemu 驱动。没有 Qemu 那前端也没什么用了，故只能结束该脚本。老师下次可不能这样了哦~诶嘿~ ${RES}"
+          exit 35
+          ;;
+        *) : ;;
+      esac
+    ;;
+  esac
+  case $param in
+    "noins")
+      if [ $apterr -eq 0 ]; then
+        echo "${G}唔嘿~装好了呢，老师可以重新打开 QemuCli 了呢~"
+        exit 0
+      else
+        echo "${R}唔...apt又不老实了呢... (返回 $apterr)${RES}"
+        exit 30
+      fi
+    ;;
+    *)
+      if [ $apterr -eq 0 ]; then
+        echo "唔嘿~装好了呢，老师可以试试新的架构哦~ [回车返回]"
+        read nullfuck
+      else
+        echo "${R}唔...apt又不老实了呢... (返回 $apterr) [回车返回]${RES}"
+        read nullfuck
+      fi
+    ;;
+  esac
+}
+
+check(){
+  echo "${Y}正在检查您的 Qemu 是否已安装...${RES}"
+  pkg list-installed|grep qemu-system &>/dev/null
+  if [ ! $? -eq 0 ];then
+    ins_qemu noins
+  fi
+}
+
+main(){
+  echo "${R}Qemu${B}cli${RES} ${qcli_ver}"
+  echo "非常简单的 Qemu 前端"
+  echo "=================================="
+  echo "${G} 1)${RES} 创建一个虚拟机"
+  echo "${B} 2)${RES} 运行/管理一个虚拟机"
+  echo "${C} 3)${RES} 管理 Qemu"
+  echo "${P} 4)${RES} 使用 qemu-img 创建磁盘"
+  echo "${R} 99)${RES} 退出 Qemu"
+  echo "=================================="
+  read -p "输入选项：" sel
+  case $sel in
+    "99") exit 0 ;;
+    *) : ;;
+  esac
+}
+
+check
+while [ 1 ];do
+  main
+done

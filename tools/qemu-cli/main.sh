@@ -3,12 +3,48 @@
 # QemuCli
 # ByToad114
 # 更新日志：
+#  v0.21 开工 create.sh
+#  v0.2 自定义 vm 文件夹（还是模仿小鸟游星野的语气呢~）
 #  v0.1 完成基础 qemu 安装及检测功能（提示和报错都有模仿星野的说话语气呢~）
 
 source $PREFIX/lib/tpaxs/global
 
 qcli_ver="v0.1"
 qcli_status="dev"
+qcli_path="$tool_path/qemu-cli"
+qcli_vm_f="$tool_path/qemu-cli/.vmfolder"
+
+source $qcli_path/create.sh
+
+check_folder(){
+  if [ -e ${qcli_vm_f} ] && [ -f ${qcli_vm_f} ];then
+    :
+  elif [ -e ${qcli_vm_f} ] && [ -d ${qcli_vm_f} ];then
+    echo "${R}呜~~可恶的老师在 $tool_path/qemu-cli 建了个文件夹叫 .vmfolder，我要打算在那里写文件的...呜"
+    exit 31
+  else
+    echo "${G}唔嘿~老师还没有选定虚拟机存放的文件夹呢~"
+    read -p "${Y}大声告诉我要放到哪里吧~ ${G}[默认选定 $HOME/vm]: ${RES}" folder
+    if [ -z "$folder" ];then
+      folder=$HOME/vm
+    fi
+    if [ ! -d "$folder" ];then
+      mkdir $folder
+      if [ ! $? -eq 0 ];then echo "${R}呜~老师你给的文件夹我创建不了呢... (返回 $?)${RES}";exit 31;fi
+    else
+      echo "${R}呜啊~老师太坏了，'$folder' 明明是文件不是文件夹...${RES}"
+      exit 31
+    fi
+    echo "$folder" > "$qcli_vm_f"
+    if [ $? -eq 0 ];then
+      echo "${G}呜嘿~一切配置都完成了，还是谢谢你啦老师~${RES}"
+      sleep 1
+    else
+      echo "${R}呜...我遇到问题写不进去了吗... (返回 $?)${RES}"
+      exit 31
+    fi
+  fi
+}
 
 ins_qemu(){
   param=$1
@@ -27,7 +63,7 @@ ins_qemu(){
     "99" | *)
       case $param in
         "noins")
-          echo "${R}由于您没有安装任何的 Qemu 软件包，后端由 Qemu 驱动。没有 Qemu 那前端也没什么用了，故只能结束该脚本。老师下次可不能这样了哦~诶嘿~ ${RES}"
+          echo "${R}由于您没有安装任何的 Qemu 软件包，后端由 Qemu 驱动。没有 Qemu 那前端也没什么用了，故只能结束该脚本。老师下次可不能这样了哦~ ${RES}"
           exit 35
           ;;
         *) : ;;
@@ -37,19 +73,19 @@ ins_qemu(){
   case $param in
     "noins")
       if [ $apterr -eq 0 ]; then
-        echo "${G}唔嘿~装好了呢，老师可以重新打开 QemuCli 了呢~"
+        echo "${G}呜嘿~装好了呢，老师可以重新打开 QemuCli 了呢~"
         exit 0
       else
-        echo "${R}唔...apt又不老实了呢... (返回 $apterr)${RES}"
+        echo "${R}呜...apt又不老实了呢... (返回 $apterr)${RES}"
         exit 30
       fi
     ;;
     *)
       if [ $apterr -eq 0 ]; then
-        echo "唔嘿~装好了呢，老师可以试试新的架构哦~ [回车返回]"
+        echo "呜嘿~装好了呢，老师可以试试新的架构哦~ [回车返回]"
         read nullfuck
       else
-        echo "${R}唔...apt又不老实了呢... (返回 $apterr) [回车返回]${RES}"
+        echo "${R}呜...apt又不老实了呢... (返回 $apterr) [回车返回]${RES}"
         read nullfuck
       fi
     ;;
@@ -81,6 +117,7 @@ main(){
   esac
 }
 
+check_folder
 check
 while [ 1 ];do
   main

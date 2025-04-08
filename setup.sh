@@ -29,10 +29,12 @@ langs(){
   case $(whiptail --title "选择语言" --menu "Select your language" 30 40 10 \
      "1" "默认检测 $(getprop persist.sys.locale)" \
      "2" "zh_CN (简体中文)" \
-     "3" "en_US (English)" 3>&1 1>&2 2>&3) in
+     "3" "en_US (English)" \
+     "4" "ja_JP (日本語)" 3>&1 1>&2 2>&3) in
      "1") LANGUAGE=$(getprop persist.sys.locale) ;;
      "2") LANGUAGE="zh-CN" ;;
      "3") LANGUAGE="en-US" ;;
+     "4") LANGUAGE="ja-JP" ;;
      *) LANGUAGE="zh-CN" ;;
   esac
 }

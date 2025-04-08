@@ -3,8 +3,9 @@
 # QemuCli
 # ByToad114
 # 更新日志：
+#  v0.22 完成 create.sh 但还未经大量测试
 #  v0.21 开工 create.sh
-#  v0.2 自定义 vm 文件夹（还是模仿小鸟游星野的语气呢~）
+#  v0.2 自定义 vm 文件夹及提示（还是模仿小鸟游星野的语气呢~）
 #  v0.1 完成基础 qemu 安装及检测功能（提示和报错都有模仿星野的说话语气呢~）
 
 source $PREFIX/lib/tpaxs/global
@@ -14,8 +15,6 @@ qcli_status="dev"
 qcli_path="$tool_path/qemu-cli"
 qcli_vm_f="$tool_path/qemu-cli/.vmfolder"
 
-source $qcli_path/create.sh
-
 check_folder(){
   if [ -e ${qcli_vm_f} ] && [ -f ${qcli_vm_f} ];then
     :
@@ -23,15 +22,15 @@ check_folder(){
     echo "${R}呜~~可恶的老师在 $tool_path/qemu-cli 建了个文件夹叫 .vmfolder，我要打算在那里写文件的...呜"
     exit 31
   else
-    echo "${G}唔嘿~老师还没有选定虚拟机存放的文件夹呢~"
+    echo "${G}呜嘿~老师还没有选定虚拟机存放的文件夹呢~"
     read -p "${Y}大声告诉我要放到哪里吧~ ${G}[默认选定 $HOME/vm]: ${RES}" folder
     if [ -z "$folder" ];then
       folder=$HOME/vm
     fi
-    if [ ! -d "$folder" ];then
+    if [ ! -e "$folder" ];then
       mkdir $folder
       if [ ! $? -eq 0 ];then echo "${R}呜~老师你给的文件夹我创建不了呢... (返回 $?)${RES}";exit 31;fi
-    else
+    elif [ -f "$folder" ];then
       echo "${R}呜啊~老师太坏了，'$folder' 明明是文件不是文件夹...${RES}"
       exit 31
     fi
@@ -107,11 +106,12 @@ main(){
   echo "${G} 1)${RES} 创建一个虚拟机"
   echo "${B} 2)${RES} 运行/管理一个虚拟机"
   echo "${C} 3)${RES} 管理 Qemu"
-  echo "${P} 4)${RES} 使用 qemu-img 创建磁盘"
+  echo "${Y} 4)${RES} 使用 qemu-img 创建磁盘"
   echo "${R} 99)${RES} 退出 Qemu"
   echo "=================================="
   read -p "输入选项：" sel
   case $sel in
+    "1") source $qcli_path/create.sh ;;
     "99") exit 0 ;;
     *) : ;;
   esac

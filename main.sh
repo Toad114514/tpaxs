@@ -20,6 +20,7 @@ tps_banner(){
       echo "全自動/半自動のTermuxデプロイメント/設定/実行ツールフレームワーク"
       echo "help 入力して、tPaxs フレームワークが提供するコマンドを表示します"
       echo "ls と入力してtPaxsが提供するすべての機能を表示します"
+      ;;
     "en-US" | *)
       echo "Automatic/semi-automatic Termux build/config/running tools framework"
       echo "input 'help' to show all command of tPaxs framework"
@@ -38,7 +39,7 @@ tps_check(){
   if [ ! -d $work_path/tools ]; then
     case $LANGUAGE in
       "zh-CN") echo "${Y}注意：$work_path/tools 目录不存在，尝试创建...${RES}" ;;
-      "ja-JP") echo "${Y}注$work_path/toolsディレクトリは存在しません...${RES}"
+      "ja-JP") echo "${Y}注$work_path/toolsディレクトリは存在しません...${RES}" ;;
       "en-US" | *) echo "${Y}Warning: $work_path/tools is no found and try to create...${RES}" ;;
     esac
     mkdir $work_path/tools

@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # vars
-tps_version="v0.01"
+tps_version="v0.05"
 users=$(whoami)
 work_path=$PREFIX/lib/tpaxs
 tool_path=$PREFIX/lib/tpaxs/tools

@@ -11,12 +11,14 @@
 *Current tPaxs version*  
 ### ${users}  
 *Username used when executing tpaxs*  
-### ${LANGUAGE}  
+### ${LANGUAGE} and ${LANG}  
 *tPaxs language setting. Returns the content from `$work_path/config/lang`, enabling i18n functionality for the tool.*  
 ### ${work_path}  
 *tPaxs working directory, always `$PREFIX/lib/tpaxs`*  
 ### ${tool_path}  
 *tPaxs tools directory, always `$PREFIX/lib/tpaxs/tools`*  
+### ${conf_path}
+*tPaxs configuration directory, which can be used to place configuration files for tools, always `$PREFIX/lib/tpaxs/config`*
 
 ## Functions  
 ### apt_echo \<package name\>  

@@ -5,7 +5,9 @@ tps_version="v0.05"
 users=$(whoami)
 work_path=$PREFIX/lib/tpaxs
 tool_path=$PREFIX/lib/tpaxs/tools
+conf_path=$PREFIX/lib/tpaxs/config
 LANGUAGE=$(cat $work_path/config/lang)
+LANG=$(cat $work_path/config/lang)
 
 R=$(printf '\033[31m')
 G=$(printf '\033[32m')

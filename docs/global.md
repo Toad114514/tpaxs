@@ -11,12 +11,14 @@
 *目前的 tPaxs 版本*
 ### ${users}
 *执行 tpaxs 时的用户名*
-### ${LANGUAGE}
+### ${LANGUAGE} 和 ${LANG}
 *tPaxs 语言设定值，返回 `$work_path/config/lang` 下的内容，借此可为工具搞 i18n 功能*
 ### ${work_path}
 *tPaxs 工作目录，永远都是 `$PREFIX/lib/tpaxs`*
 ### ${tool_path}
 *tPaxs 工具目录，永远都是 `$PREFIX/lib/tpaxs/tools`*
+### ${conf_path}
+*tPaxs 配置目录，可用于放置工具的配置文件，永远都是 `$PREFIX/lib/tpaxs/config`*
 
 ## 函数
 ### apt_echo <包名>

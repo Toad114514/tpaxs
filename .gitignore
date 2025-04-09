@@ -1,1 +1,3 @@
 config/
+tools/qemu-cli/.vmfolder
+tools/s9bug/

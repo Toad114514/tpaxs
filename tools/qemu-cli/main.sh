@@ -13,13 +13,13 @@ source $PREFIX/lib/tpaxs/global
 qcli_ver="v0.1"
 qcli_status="dev"
 qcli_path="$tool_path/qemu-cli"
-qcli_vm_f="$tool_path/qemu-cli/.vmfolder"
+qcli_vm_f="$conf_path/.qcli_vmfolder"
 
 check_folder(){
   if [ -e ${qcli_vm_f} ] && [ -f ${qcli_vm_f} ];then
     :
   elif [ -e ${qcli_vm_f} ] && [ -d ${qcli_vm_f} ];then
-    echo "${R}呜~~可恶的老师在 $tool_path/qemu-cli 建了个文件夹叫 .vmfolder，我要打算在那里写文件的...呜"
+    echo "${R}呜~~可恶的老师在 $conf_path/ 建了个文件夹叫 .qcli_vmfolder，我要打算在那里写文件的...呜"
     exit 31
   else
     echo "${G}呜嘿~老师还没有选定虚拟机存放的文件夹呢~"

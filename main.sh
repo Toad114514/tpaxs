@@ -148,7 +148,7 @@ opentools(){
           # 检测依赖
           local depend=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'depend'/{print $2;exit}' $f/info.ini)
           if [ -z $depend ];then
-            source $f/main.sh
+            bash $f/main.sh
           else
             local depends=(${depend//,/ })
             for package in ${depends[@]};do
@@ -157,7 +157,7 @@ opentools(){
                 apt_echo $package
               fi
             done
-            source $f/main.sh
+            bash $f/main.sh
           fi
           tps_yestofind="91lztdtm"
           break 1

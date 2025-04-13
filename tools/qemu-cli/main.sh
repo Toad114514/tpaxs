@@ -1,16 +1,27 @@
 #!/data/data/com.termux/files/usr/bin/bash
-
+source $PREFIX/lib/tpaxs/global
 # QemuCli
 # ByToad114
+#         Roadmap
+#  - 基础的 Qemu 软件包检查与安装
+#  - 创建虚拟机
+#  - 自定义虚拟机存放位置
+#  - 管理及运行
+#    - 菜单 (HEAD/repo)
+#    - 具体管理/运行 (接下来的实现)
+
 # 更新日志：
-#  v0.22 完成 create.sh 但还未经大量测试
+#  v0.24 准备开工 manager2.sh
+#  v0.23.5 已完成测试 manager.sh，修复基础bug
+#  v0.23.2 完工 manager.sh 实现菜单显示
+#  v0.23 开工 manager.sh 
+#  v0.22 完成 create.sh （基础测试已过）
 #  v0.21 开工 create.sh
 #  v0.2 自定义 vm 文件夹及提示（还是模仿小鸟游星野的语气呢~）
 #  v0.1 完成基础 qemu 安装及检测功能（提示和报错都有模仿星野的说话语气呢~）
 
-source $PREFIX/lib/tpaxs/global
 
-qcli_ver="v0.1"
+qcli_ver="v0.23.5"
 qcli_status="dev"
 qcli_path="$tool_path/qemu-cli"
 qcli_vm_f="$conf_path/.qcli_vmfolder"
@@ -111,7 +122,8 @@ main(){
   echo "=================================="
   read -p "输入选项：" sel
   case $sel in
-    "1") source $qcli_path/create.sh ;;
+    "1") bash $qcli_path/create.sh ;;
+    "2") bash $qcli_path/manager.sh ;; 
     "99") exit 0 ;;
     *) : ;;
   esac

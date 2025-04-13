@@ -141,6 +141,6 @@ case $select in
     "7") echo "我还没有做好" ;;
     "8") onedragon ;;
     "9") startup ;;
-    "99") echo "期待你的下次使用" && break;;
+    "99") echo "期待你的下次使用" && exit 0;;
 esac
 done

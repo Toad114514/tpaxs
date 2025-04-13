@@ -3,7 +3,7 @@
 # qemu-cli 虚拟机创建文件
 
 source $PREFIX/lib/tpaxs/global
-qcli_vm_folder=$(cat $tool_path/qemu-cli/.vmfolder)
+qcli_vm_folder=$(cat ${conf_path}/.qcli_vmfolder)
 
 echo "==============================="
 echo "接下来我们将会引导你创建一个虚拟机"

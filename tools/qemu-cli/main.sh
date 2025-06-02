@@ -40,7 +40,7 @@ check_folder(){
     fi
     if [ ! -e "$folder" ];then
       mkdir $folder
-      if [ ! $? -eq 0 ];then echo "${R}呜~老师你给的文件夹我创建不了呢... (返回 $?)${RES}";exit 31;fi
+      if [ ! $? -eq 0 ];then echo "${R}老师你给的文件夹我创建不了呢... (返回 $?)${RES}";exit 31;fi
     elif [ -f "$folder" ];then
       echo "${R}呜啊~老师太坏了，'$folder' 明明是文件不是文件夹...${RES}"
       exit 31
@@ -50,7 +50,7 @@ check_folder(){
       echo "${G}呜嘿~一切配置都完成了，还是谢谢你啦老师~${RES}"
       sleep 1
     else
-      echo "${R}呜...我遇到问题写不进去了吗... (返回 $?)${RES}"
+      echo "${R}呜...遇到问题写不进去了吗... (返回 $?)${RES}"
       exit 31
     fi
   fi
@@ -86,7 +86,7 @@ ins_qemu(){
         echo "${G}呜嘿~装好了呢，老师可以重新打开 QemuCli 了呢~"
         exit 0
       else
-        echo "${R}呜...apt又不老实了呢... (返回 $apterr)${RES}"
+        echo "${R}apt又不老实了呢... (返回 $apterr)${RES}"
         exit 30
       fi
     ;;
@@ -95,7 +95,7 @@ ins_qemu(){
         echo "呜嘿~装好了呢，老师可以试试新的架构哦~ [回车返回]"
         read nullfuck
       else
-        echo "${R}呜...apt又不老实了呢... (返回 $apterr) [回车返回]${RES}"
+        echo "${R}apt又不老实了呢... (返回 $apterr) [回车返回]${RES}"
         read nullfuck
       fi
     ;;

@@ -21,21 +21,21 @@ for i in $(find ${vmf} -type d);do
     :
   else
   if [ ! -e ${i}/qcli_conf.ini ];then
-    echo "找不到 ${i}/qcli_conf.ini" > ${i}/qclierr.txt
+    echo "找不到 ${i}/qcli_conf.ini" > "${i}/qclierr.txt"
   else
     if [ -d ${i}/qcli_conf.ini ];then
-      echo "${i}/qcli_conf.ini 不是文件" > ${i}/qclierr.txt
+      echo "${i}/qcli_conf.ini 不是文件" > "${i}/qclierr.txt"
     else
       if [ ! -w ${i}/qcli_conf.ini -o ! -r ${i}/qcli_conf.ini ];then
-        echo "${i}/qcli_conf.ini 没有读写权限" > ${i}/qclierr.txt
+        echo "${i}/qcli_conf.ini 没有读写权限" > "${i}/qclierr.txt"
       else
         vmname=$(iniRead ${i}/qcli_conf.ini qcli name)
         if [ $? -eq 0 -a ! -z $vmname ];then
           echo "${G}${forina}) ${RES}${vmname}"
-          vmf_list[$forina]=${vmname}
+          vmf_list[$forina]="${vmname}"
           forina=`expr $forina + 1`
         else
-          echo "${i}/qcli_conf.ini 出现问题无法读取，可能不是ini文件或者虚拟机名为空" > ${i}/qclierr.txt
+          echo "${i}/qcli_conf.ini 出现问题无法读取，可能不是ini文件或者虚拟机名为空" > "${i}/qclierr.txt"
         fi
       fi
     fi
@@ -57,7 +57,7 @@ case "$sel" in
         echo "无效输入" && sleep 1
       else
         echo "获取序号 ${sel}: 虚拟机 ${vmf_list[$sel]}"
-        ./manager2.sh ${vmf_list[$sel]}
+        bash ${qcli_path}/manager2.sh "${vmf_list[$sel]}"
       fi
     fi
   ;;

@@ -5,21 +5,34 @@ source $work_path/tools/tdesking/scripts.sh
 tdking_path=$work_path/tools/tdesking
 bin_path=$PREFIX/usr/bin
 banner(){
-  echo "古希腊掌管 Termux Desktop 的神"
+  case $LANG in
+    "zh_CN"|"zh-CN") echo "古希腊掌管 Termux Desktop 的神" ;;
+    "en_US"|*) echo "Termux Desktop Installer" ;;
+  esac
+  
 }
 
 # INSTALL
 install_xfce4(){
-  read -p "你想要安装${Y}精简版本${RES}吗？[y(es)/n(o)/e(xit)]" select
+  case $LANG in
+    "zh-CN") read -p "你想要安装${Y}精简版本${RES}吗？[y(es)/n(o)/e(xit)]" select ;;
+    "en-US"|*) read -p "Do you want install${Y}Tiny version${RES}? [y(es)/n(o)/e(xit)]" select
+  esac
   case "$select" in
     "n" | "no")
       pkg list-installed|grep xfce4 &>/dev/null
       if [ ! $? -eq 0 ];then
         apt_echo xfce4
-        tps_done "xfce4 安装完成"
+        case $LANG in
+          "zh-CN") tps_done "xfce4 安装完成"
+          "en-US"|*) tps_done "xfce4 install successfull."
+        esac
         sleep 2
       else
-        tps_done "你已经安装了 xfce4，不必再继续安装"
+        case $LANG in
+          "zh-CN") tps_done "你已经安装了 xfce4，不必再继续安装"
+          "en-US") tps_done "You are installed xfce4, no need to install"
+        esac
         sleep 2
       fi
     ;;
@@ -30,7 +43,10 @@ install_xfce4(){
 
 install_xfce4_mini(){
   apt_echo "xfwm4 xfce4-panel xfdesktop4 xfce4-session xfce4-settings xfconf"
-  tps_done "xfce4 精简版安装完成"
+  case $LANG in
+    "zh-CN") tps_done "xfce4 精简版安装完成" ;;
+    "en-US") tps_done "xfce4 tiny version install successfull" ;;
+  esac
   sleep 2
 }
 
@@ -88,18 +104,36 @@ tx11(){
 }
 
 input(){
-  echo "1) 安装 xfce4"
-  echo "2) 安装 mate"
-  echo "3) 安装 lxqt"
-  echo "4) 部署 tx11"
-  echo "5) 部署显卡加速 virglrender"
-  echo "6) 安装常用软件"
-  echo "7) 解决 Android 12 signal 9 问题"
-  echo "8) 一条龙服务"
-  echo "9) 创建启动脚本"
-  echo "10) 查看帮助"
-  echo "99) 退出"
-  read -p "请做出你的选择：" select
+  case $LANG in
+  "zh-CN")
+      echo "1) 安装 xfce4"
+      echo "2) 安装 mate"
+      echo "3) 安装 lxqt"
+      echo "4) 部署 tx11"
+      echo "5) 部署显卡加速 virglrender"
+      echo "6) 安装常用软件"
+      echo "7) 解决 Android 12 signal 9 问题"
+      echo "8) 一条龙服务"
+      echo "9) 创建启动脚本"
+      echo "10) 查看帮助"
+      echo "99) 退出"
+      read -p "请做出你的选择：" select
+  ;;
+  "en-US"|*)
+      echo "1) install xfce4"
+      echo "2) install mate"
+      echo "3) install lxqt"
+      echo "4) deploy termux-x11"
+      echo "5) deploy virglrender"
+      echo "6) install some software"
+      echo "7) Android 12 signal 9"
+      echo "8) One-click Menu"
+      echo "9) create startup script"
+      echo "10) show help"
+      echo "99) Exit"
+      read -p "Input the number：" select
+  ;;
+esac
 }
 
 onedragon(){

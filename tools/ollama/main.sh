@@ -23,8 +23,8 @@ state(){
 }
 
 osetup(){
-  tps_info "克隆仓库...(如果克隆速度慢，您可以在 ${work_path}/tools/ollama/main.sh 的第7行修改其他ollama仓库地址)"
-  git clone $ollama_repo --depth $ollama_path
+  tps_info "克隆仓库...(如果克隆速度慢，您可以在 ${work_path}/tools/ollama/main.sh 的第8行修改其他ollama仓库地址)"
+  git clone $ollama_repo --depth=1 $ollama_path
   cd $ollama_path
   tps_info "初始化 ollama 编译环境..."
   go generator .

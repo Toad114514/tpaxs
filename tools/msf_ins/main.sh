@@ -19,9 +19,10 @@ alldone(){
   echo "================================"
   echo "Metasploit 安装完成！"
   echo "你的 msf6 安装位置：$msf_path"
-  echo "启动 msf6 命令行：${Y}metasploit${RES}"
+  echo "启动 msf6 命令行：${Y}msfconsole${RES}"
   echo "请开始你的高级渗透罢（喜"
   echo "================================"
+  exit 0
 }
 
 start_ins(){

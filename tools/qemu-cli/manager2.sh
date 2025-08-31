@@ -93,6 +93,7 @@ set(){
     ;;
   esac
 }
+
 edit(){
   clear
   echo "=============≠≠≠≈============="
@@ -122,6 +123,21 @@ edit(){
     "99") : ;;
   esac
 }
+
+start(){
+  local name=$(iniRead "$vmc" qcli name)
+  local machine=$(iniRead "$vmc" qcli machine)
+  local mem=$(iniRead "$vmc" qcli memory)
+  local smp=$(iniRead "$vmc" qcli smp)
+  local hda=$(iniRead "$vmc" qcli hda)
+  local cdrom=$(iniRead "$vmc" qcli cdrom)
+  local vga=$(iniRead "$vmc" qcli vga)
+  local port=$(iniRead "$vmc" qcli vncport)
+  local vncp=`expr $port + 5900`
+  echo "qemu-system-i386 -machine ${machine} -m ${mem} -smp ${smp} -hda ${hda} -cdrom ${cdrom} -vnc $vncp"
+  qemu-system-i386 -machine ${machine} -m ${mem} -smp ${smp} -hda ${hda} -cdrom ${cdrom} -vnc $vncp
+}
+
 main(){
   vmname=$(iniRead "$vmc" qcli name)
   echo "=========================="
@@ -136,6 +152,7 @@ main(){
   case ${sel} in
     "1") look ;;
     "2") edit ;;
+    "3") start ;;
     "4") exit ;;
   esac
 }

@@ -16,7 +16,7 @@ echo "全部虚拟机"
 echo "============================"
 declare -A vmf_list
 forina=0
-for i in $(find ${vmf} -type d);do
+for i in $(find ${vmf} -maxdepth 1 -type d);do
   if [ "${i}" == "${vmf}" ];then
     :
   else
@@ -56,8 +56,8 @@ case "$sel" in
       if [ ! $seld -le $forina ];then
         echo "无效输入" && sleep 1
       else
-        echo "获取序号 ${sel}: 虚拟机 ${vmf_list[$sel]}"
-        bash ${qcli_path}/manager2.sh "${vmf_list[$sel]}"
+          echo "获取序号 ${sel}: 虚拟机 ${vmf_list[$sel]}"
+          bash ${qcli_path}/manager2.sh "${vmf_list[$sel]}"
       fi
     fi
   ;;

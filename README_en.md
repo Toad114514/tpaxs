@@ -1,6 +1,6 @@
 # tPaxs  
 [中文](README.md) [English](README_en.md)<br>
-A Termux tool integration framework written in Bash  
+A Termux tool written in Bash  
 ## Introduction  
 It is a lightweight framework. In reality, the tools themselves are not included; instead, this framework integrates them and allows you to access them freely (honestly, I’m not entirely sure how to describe this project).  
 Entirely written in Bash, ensuring quick deployment.  

@@ -48,33 +48,41 @@ remoteu(){
     else
       echo -e "\n===============================\n${Y}更新到 ${G}${rcommit} ${Y}提交后的所有提交内容：${RES}"
       git --no-pager log --pretty=format:"%h - %an, %ar : %s" "$lcommit..$rcommit"
+      echo -e "\n==============================="
       read -p $'\n是否确认更新？(y/n) ' confirm
       if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
         tps_info "已取消更新。"
       else
         tps_info "开始更新 tPaxs..."
+        bakpath=$PREFIX/lib/tps_bak
+        rm -rf ${bakpath}
+        cp -r ${work_path} ${bakpath}
+        rm -rf ${work_path}
+        cd ..
         case $repo in
           "origin") 
-            git clone https://github.com/toad114514/tpaxs --depth=1 $PREFIX/lib/tpaxs/.tmp_update
+            git clone https://github.com/toad114514/tpaxs $PREFIX/lib/tpaxs
             gitback=$?
           ;;
           "gitee")
-            git clone https://gitee.com/toadstool/tpaxs --depth=1 $PREFIX/lib/tpaxs/.tmp_update
+            git clone https://gitee.com/toadstool/tpaxs $PREFIX/lib/tpaxs
             gitback=$?
           ;;
         esac
         if [ ! $gitback -eq 0 ];then
           tps_err "很抱歉，拉取仓库时出现问题。已停止更新。"
-          rm -rf $PREFIX/lib/tpaxs/.tmp_update
+          cp -r ${bakpath} ${work_path}
         else
           tps_done "拉取成功！正在尝试移动文件"
-          newpath=${work_path}/../tpaxs_backup
-          mv ${work_path} ${newpath}
-          mv ${newpath}/.tmp_backup ${work_path}
-          mv ${newpath}/config ${work_path}/config
+          mv ${bakpath}/config ${work_path}/config
+          if [ ! $? -eq 0 ];then
+            tps_err "很抱歉，config文件夹移动失败，tpaxs虽然能正常工作，但旧版本存档将消失。"
+            tps_err "请尝试自己移动文件夹并解决问题："
+            tps_err "  mv ${bakpath}/config ${work_path}/config"
+          fi
           tps_done "更新完成！"
           echo "${G}您的 tPaxs 已更新完成到目前提交 $rcommit！${RES}"
-          echo "tPaxs 将退出，您只需要重新输入 tpaxs 即可食用！"
+          echo "tPaxs 将退出，您只需要重新打开termux并输入 tpaxs 即可食用！"
           sleep 0.5
           exit 0
         fi

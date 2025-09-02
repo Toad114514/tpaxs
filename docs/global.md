@@ -23,6 +23,8 @@
 ## 函数
 ### apt_echo <包名>
 *输出带颜色的 apt install -y \<包名\> 并自动执行 apt install -y \<包名\>，用于为用户华丽的展示要安装的内容。*
+### notification <标题> <内容>
+*在termux手机任务栏弹出一个弹窗，必须设置标题和内容，借助termux-api实现。"
 ### tps_info <内容>
 *输出一串格式化的信息 Debug*<br>
 格式如下：\[IFO\] \[hh:mm:ss\] \<内容\>，用于更好的给开发者可视化调试信息

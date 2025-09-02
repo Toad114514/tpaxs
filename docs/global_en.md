@@ -23,6 +23,8 @@
 ## Functions  
 ### apt_echo \<package name\>  
 *Outputs a colored `apt install -y <package name>` command and automatically executes `apt install -y <package name>`. Used to elegantly display installation steps to users.*  
+### notification \<title\> \<moment\>
+*在termux手机任务栏弹出一个弹窗，必须设置标题和内容，借助termux-api实现。Create the world by termux, using notifications dont worry about, base on termux-x11"
 ### tps_info \<content\>  
 *Outputs formatted informational debug messages.*  
 Format: `[IFO] [hh:mm:ss] <content>`, designed to help developers visualize debugging information.  

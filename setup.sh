@@ -39,6 +39,18 @@ langs(){
   esac
 }
 
+set(){
+  case $(whipstail --title "是否使用 termux-api 进行工具提醒？" --menu "如果您的设备已安装了 termux-api，且之后想要被完成的任务提醒的话，请选择是，否则选择否，如果不确定请选择no。" 30 40 10 \
+    "1" "yes" \
+    "2" "no" 3>&1 1>&2 2>&3) in
+    "1")
+      echo 1 > $tpaxs_work/config/notifications
+      apt_echo termux-api
+    ;;
+    "2") echo 0 > $tpaxs_work/config/notifications ;;
+  esac
+}
+
 setup(){
   # Depends Check
   echo "${G}正在检查并安装对应软件包依赖...${RES}"
@@ -80,6 +92,7 @@ setup(){
         "en-US" | *) git clone https://github.com/toad114514/tpaxs --depth=1 $PREFIX/lib/tpaxs ;;
       esac
   esac
+  mkdir $tpaxs_path/config
   # bash
   echo "${G}创建软链接...${RES}"
   ln -sf $tpaxs_path/main.sh $PREFIX/bin/tpaxs
@@ -95,7 +108,10 @@ config(){
 
 setup_info(){
   echo "Welcome to tPaxs Setup Wizard"
-  read -p "${R}你想要${G}现在安装tPaxs吗？[${Y}Y${RES}/${B}N${RES}]" select
+  case $LANGUAGE in
+    "zh-CN") read -p "${R}你想要${G}现在安装tPaxs吗？[${Y}Y${RES}/${B}N${RES}]" select ;;
+    "en-US"|*) read -p "${R}Do you want to${G}install tPaxs now？[${Y}Y${RES}/${B}N${RES}]" select ;;
+  esac
   case "$select" in
    "Y" | "y" | *) setup ;;
    "N" | "n")
@@ -108,6 +124,7 @@ setup_info(){
 setup_banner
 setup_info
 config
+set
 echo "
  ====================
  ${G}tPaxs 安装完成！${RES}

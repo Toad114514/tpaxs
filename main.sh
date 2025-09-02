@@ -207,20 +207,22 @@ showtools(){
 help(){
   case $LANGUAGE in
     "zh-CN")
-      echo "tPaxs 框架 ${tps_version}"
+      echo "tPaxs ${tps_version} help"
       echo "=============================="
       echo "help - 显示框架提供的基础命令"
       echo "ls/list - 列出所有可用的工具功能信息及对应id"
       echo "show <工具ID> - 显示某个工具的详细信息"
+      echo "update - 升级 tpaxs"
       echo "exit/quit - 退出 tPaxs 框架"
       echo "=============================="
       echo "tips: 你可以直接在终端运行tPaxs命令或者工具对应id，如我想要查看工具列表：tpaxs ls"
       ;;
     "en-US" | *)
-      echo "tPaxs framework ${tps_version}"
+      echo "tPaxs ${tps_version} help"
       echo "=============================="
       echo "help - Show all command of framework"
-      echo "ls/list - List all available tool feature information and corresponding commands"
+      echo "ls/list - List all available tool feature information and corresponding command's"
+      echo "update - Update your tpaxs"
       echo "show <toolID> - Display detailed information of a certain tool"
       echo "exit/quit - Exit tPaxs framework"
       echo "=============================="
@@ -234,6 +236,7 @@ command_input(){
     "help") help ;;
     "ls" | "list") help_find ;;
     "show") showtools $2 ;;
+    "update") $work_path/update.sh ;;
     "exit" | "quit") exit_look ;;
     *) opentools $1 ;;
   esac

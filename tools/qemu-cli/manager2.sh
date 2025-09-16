@@ -37,6 +37,7 @@ look(){
   clear
 }
 set(){
+  clear
   local param=$1
   case $param in
     "name")
@@ -95,6 +96,7 @@ set(){
 }
 
 path(){
+  clear
   case $1 in
     "hda")
       local text="磁盘 1"
@@ -180,6 +182,7 @@ start(){
 }
 
 main(){
+  clear
   vmname=$(iniRead "$vmc" qcli name)
   echo "=========================="
   echo "    管理虚拟机 ${G}${vmname}${RES}"

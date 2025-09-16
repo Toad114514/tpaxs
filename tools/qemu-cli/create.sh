@@ -35,7 +35,7 @@ case $sel in
   ;;
 esac
 
-read -p "设置 CD-ROM 路径（iso镜像位置，留空不设置）：" iso_path
+read -p "设置 CD-ROM 路径（iso镜像位置，留空不设置）：" cdrom
 
 read -p "设置显卡（可选std、vmware等，默认std）：" video
 if [ -z $video ];then
@@ -43,6 +43,9 @@ if [ -z $video ];then
 fi
 
 read -p "输入 vnc 显示端口（默认 5902）：" vncport
+if [ -z $vncport ];then
+  vncport=5902
+fi
 
 echo "${Y}请耐心等待虚拟机创建..."
 

@@ -94,6 +94,45 @@ set(){
   esac
 }
 
+path(){
+  case $1 in
+    "hda")
+      local text="磁盘 1"
+      local key="hda"
+      local hint="所有 qemu 可兼容的磁盘格式，包括但不限于 qcow, qcow2, img等"
+    ;;
+    "cdrom")
+      local text="CD-ROM"
+      local key="cdrom"
+      local hint=".iso 文件路径"
+    ;;
+  esac
+  local now=$(iniRead "$vmc" qcli "$key")
+  if [ ! -z "$help" ];then
+    echo "=============≠≠≠≈============="
+    echo "$help"
+  fi
+  echo "=============≠≠≠≈============="
+  echo "${B}您要修改 ${Y}${text} ${B}的挂载路径/文件吗？"
+  echo "${B}目前 ${Y}${text} ${B}挂载了 ${R}${now}${RES}"
+  echo "=============≠≠≠≈============="
+  read -p "[y(es)/n(o)]: " sel
+  case $sel in
+    "y"|"yes")
+      if [ "$hint" == "none" ];then
+        read -p "${Y}输入新的${text}：${RES}" input
+      else
+        read -p "${Y}输入新的${text}${G}（可输入：${hint}）${RES}：" input
+      fi
+      iniWrite "$vmc" qcli ${key} ${input}
+    ;;
+    "n"|"no")
+      echo "取消输入，返回。"
+      sleep 0.9
+    ;;
+  esac
+}
+
 edit(){
   clear
   echo "=============≠≠≠≈============="
@@ -120,6 +159,8 @@ edit(){
     "2") set "machine" ;;
     "3") set "smp" ;;
     "4") set "mem" ;;
+    "01") path "hda" ;;
+    "02") path "cdrom" ;;
     "99") : ;;
   esac
 }

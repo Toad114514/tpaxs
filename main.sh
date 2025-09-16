@@ -235,6 +235,7 @@ command_input(){
   case $1 in
     "help") help ;;
     "ls" | "list") help_find ;;
+    "menu") $work_path/menu.sh ;;
     "show") showtools $2 ;;
     "update") $work_path/update.sh ;;
     "exit" | "quit") exit_look ;;

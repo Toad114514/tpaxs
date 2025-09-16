@@ -5,7 +5,7 @@ A Termux tool written in Bash
 It is a lightweight framework. In reality, the tools themselves are not included; instead, this framework integrates them and allows you to access them freely (honestly, I’m not entirely sure how to describe this project).  
 Entirely written in Bash, ensuring quick deployment.  
 Still under development, currently being actively maintained.  
-
+**i am studying in school. So i don't update in sometime.**
 ## Installation  
 Just one command:  
 ```bash  

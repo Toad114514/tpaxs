@@ -12,7 +12,7 @@ tps_banner(){
   echo "${B}${BOLD}tPaxs ${R}Dev ${tps_version}${RES} By Toad114514"
   case $LANGUAGE in
     "zh-CN")
-      echo "全/半自动 Termux 部署/配置/运行工具框架"
+      echo "全/半自动 Termux 部署/配置/运行工具"
       echo "输入 help 查看 tPaxs 框架提供命令"
       echo "输入 ls 查看 tPaxs 提供的全部功能"
     ;;
@@ -22,7 +22,7 @@ tps_banner(){
       echo "ls と入力してtPaxsが提供するすべての機能を表示します"
       ;;
     "en-US" | *)
-      echo "Automatic/semi-automatic Termux build/config/running tools framework"
+      echo "Automatic/semi-automatic Termux build/config/running tools"
       echo "input 'help' to show all command of tPaxs framework"
       echo "input 'ls' to show all useful tools from tpaxs"
     ;;

@@ -8,16 +8,36 @@ ollama_path=$HOME/ollama
 ollama_repo=https://github.com/ollama/ollama.git
 
 state(){
-  printf "ollama 状态: "
+  case $LANGUAGE in
+    "zh-CN") printf "ollama 状态: " ;;
+    "en-US"|*) printf "ollama state: " ;;
+  esac
   if [ -f $ollama_path/ollama ];then
-    printf "${G}已完成编译 |"
-    if [ -z "$(pgrep ollama)" ];then
+    case $LANGUAGE in
+      "zh-CN") printf "${G}已完成编译 |" ;;
+      "en-US" | *) printf "${G} Compiled |" ;;
+    esac
+    case $LANGUAGE in 
+    "zh-CN")
+    if [ ! -z "$(pgrep ollama)" ];then
       printf "${G} 服务已启动\n"
     else
       printf "${R} 服务未启动\n"
     fi
+    ;;
+    "en-US" | *)
+    if [ ! -z "$(pgrep ollama)" ];then
+      printf "${G} Server is started\n"
+    else
+      printf "${R} Server not start\n"
+    fi
+    ;;
+    esac
   else
-    printf "${R}未编译\n"
+    case $LANGUAGE in 
+      "zh-CN") printf "${R}未编译\n" ;;
+      "en-US") printf "${R}No compile" ;;
+    esac
   fi
   printf "${RES}"
 }
@@ -65,6 +85,8 @@ ollama_start(){
 }
 
 ollama_startlist(){
+  case $LANGUAGE in
+  "zh-CN")
   echo "[       请选择你的AI大模型        ]"
   echo "=============================="
   echo "1. Deepseek-R1 模型 (1.5B) ${G}[烂机子适用]${RES}"
@@ -73,10 +95,25 @@ ollama_startlist(){
   echo "4. liama 3.2 模型 (1B)"
   read -p "选择对应序号：" sel
   tps_info "第一次使用时需要下载对应模型数据，接着便可继续使用，你明白吗？"
+  ;;
+  "en-US" | *)
+  echo "[       Select your AI Model        ]"
+  echo "=============================="
+  echo "1. Deepseek-R1 (1.5B) ${G}[Low]${RES}"
+  echo "2. Deepseek-R1 (7B) ${G}[High]${RES}"
+  echo "3. liama 3.2 (3B)"
+  echo "4. liama 3.2 (1B)"
+  read -p "Select your Model：" sel
+  tps_info "To first use model, ollama need to download this model data. This step will consumes a lot of time. Are you know that?"
+  ;;
+  esac
   read -p "[y/n]: " ok
   case "$ok" in
     "y")
-      echo "弟子明白！"
+      case $LANGUAGE in
+        "zh-CN") echo "弟子明白！" ;;
+        "en-US" | *) echo "I know!" ;;
+      esac
       sleep 1
       startrun $sel
       ;;
@@ -87,12 +124,24 @@ ollama_startlist(){
 main(){
   state
   echo "====================="
+  case $LANGUAGE in
+  "zh-CN")
   echo "1. 编译(安装) ollama"
   echo "2. 启动 ollama 服务"
   echo "3. 运行 ollama 模型"
   echo "99. 退出"
+  ;;
+  "en-US" | *)
+  echo "1. Compiles(Install) ollama"
+  echo "2. Startup ollama server"
+  echo "3. Run ollama model"
+  ;;
+  esac
   echo "====================="
-  read -p "输入：" sel
+  case $LANGUAGE in
+    "zh-CN") read -p "输入：" sel ;;
+    "en-US" | *) read -p "Input: " sel ;;
+  esac
 }
 
 while [ 1 ]

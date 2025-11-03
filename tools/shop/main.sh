@@ -32,6 +32,8 @@ x11(){
   echo " 5) pcmanfm: 简易的文件管理器"
   echo " 6) pcmanfm-qt: 上面文件管理器的 Qt 版本"
   echo " 7) glmark2: GPU 跑分工具"
+  echo " 8) vim-gtk: 图形化 vim"
+  echo " 9) xclock: X 时钟"
   echo "==========================="
   read -p "sel/x11: " sel
   case $sel in
@@ -41,7 +43,31 @@ x11(){
     "4") ins firefox ;;
     "5") ins pcmanfm ;;
     "6") ins pcmanfm-qt ;;
-    "7") ins glmsrk2 ;;
+    "7") ins glmark2 ;;
+    "8") ins vim-gtk ;;
+    "9") ins xorg-xclock ;;
+    *) : ;;
+  esac
+}
+
+dev(){
+  echo "==========================="
+  echo "     ${Y}Deploments${RES}"
+  echo "==========================="
+  echo " 1) Nano: 经典便携式 GNU 编辑器"
+  echo " 2) vim: 强大可扩展的终端编辑器，vi 前身"
+  echo " 3) neovim: vim 但是你可以给他装插件！"
+  echo " 4) cmake: 友好的编译配置生成工具"
+  echo " 5) python3: 友好简单的高级编程语言开发环境，初学者入坑代码必学"
+  echo "==========================="
+  read -p "sel/dev: " sel
+  case $sel in
+    "1") ins nano ;;
+    "2") ins vim ;;
+    "3") ins neovim ;;
+    "4") ins cmake ;;
+    "5") ins python3 ;;
+    *) : ;;
   esac
 }
 
@@ -54,6 +80,7 @@ ins(){
 }
 
 title(){
+  clear
   echo "   应用商店"
   echo "======================"
   echo " 1) 多媒体"
@@ -63,6 +90,8 @@ title(){
   echo " 5) 终端程序"
   echo " 6) 其他"
   echo "======================"
+  echo " 如果你不小心点进某个分类想退出，只需输入序号以外的内容即可。"
+  echo "======================"
   echo " 99) 退出"
 }
 
@@ -70,6 +99,7 @@ while [ 1 ]
 do
   title
   read -p "输入：" sel
+  clear
   case $sel in
     "1") multi ;;
     "2") dev ;;

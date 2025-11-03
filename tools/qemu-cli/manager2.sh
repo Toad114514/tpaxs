@@ -12,9 +12,9 @@ vm="${vmf}/$1"
 vmc="${vm}/qcli_conf.ini"
 
 look(){
-  echo "=============≠≠≠≈============="
-  echo ""
+  echo "=============================="
   local name=$(iniRead "$vmc" qcli name)
+  local frame=$(iniRead "$vmc" qcli frame)
   local machine=$(iniRead "$vmc" qcli machine)
   local mem=$(iniRead "$vmc" qcli memory)
   local smp=$(iniRead "$vmc" qcli smp)
@@ -23,6 +23,7 @@ look(){
   local vga=$(iniRead "$vmc" qcli vga)
   local port=$(iniRead "$vmc" qcli vncport)
   echo "虚拟机名字：$name"
+  echo "架构：$frame"
   echo "机器类型：$machine"
   echo "分配内存：$mem"
   echo "核心数：$smp"
@@ -31,7 +32,7 @@ look(){
   echo "显卡驱动：$vga"
   local vncp=`expr ${port} + 5900`
   echo "VNC 端口：$vncp"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "${Y}<Enter>${RES} 返回"
   read tmps
   clear
@@ -66,13 +67,13 @@ set(){
   esac
   local now=$(iniRead "$vmc" qcli "$key")
   if [ ! -z "$help" ];then
-    echo "=============≠≠≠≈============="
+    echo "=============================="
     echo "$help"
   fi
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "${B}您要修改 ${Y}${text} ${B}吗？"
   echo "${B}目前 ${Y}${text} ${B}值为 ${R}${now}${RES}"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   read -p "[y(es)/n(o)]: " sel
   case $sel in
     "y"|"yes")
@@ -111,13 +112,13 @@ path(){
   esac
   local now=$(iniRead "$vmc" qcli "$key")
   if [ ! -z "$help" ];then
-    echo "=============≠≠≠≈============="
+    echo "=============================="
     echo "$help"
   fi
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "${B}您要修改 ${Y}${text} ${B}的挂载路径/文件吗？"
   echo "${B}目前 ${Y}${text} ${B}挂载了 ${R}${now}${RES}"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   read -p "[y(es)/n(o)]: " sel
   case $sel in
     "y"|"yes")
@@ -137,24 +138,24 @@ path(){
 
 edit(){
   clear
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "   修改虚拟机参数"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "1. 虚拟机名字"
   echo "2. 机器类型"
   echo "3. 分配核心数"
   echo "4. 分配内存"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "   挂载目录"
   echo "01. 硬盘1"
   echo "02. CD-Rom"
-  echo "=============≠≠≠≈============="
-  echo "   外部硬件模拟"
+  echo "=============================="
+  echo "   设备"
   echo "001. 显示器"
   echo "002. 显示方案"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   echo "99. 返回"
-  echo "=============≠≠≠≈============="
+  echo "=============================="
   read -p "选择一个进行修改... :" sel
   case $sel in
     "1") set "name" ;;
@@ -169,6 +170,7 @@ edit(){
 
 start(){
   local name=$(iniRead "$vmc" qcli name)
+  local frame=$(iniRead "$vmc" qcli frame)
   local machine=$(iniRead "$vmc" qcli machine)
   local mem=$(iniRead "$vmc" qcli memory)
   local smp=$(iniRead "$vmc" qcli smp)
@@ -177,8 +179,18 @@ start(){
   local vga=$(iniRead "$vmc" qcli vga)
   local port=$(iniRead "$vmc" qcli vncport)
   local vncp=`expr $port + 5900`
-  echo "qemu-system-i386 -machine ${machine} -m ${mem} -smp ${smp} -hda ${hda} -cdrom ${cdrom} -vnc $vncp"
-  qemu-system-i386 -machine ${machine} -m ${mem} -smp ${smp} -hda ${hda} -cdrom ${cdrom} -vnc $vncp
+  if [ -z $cdrom ];then
+    local cdromc="-cdrom ${cdrom}"
+  else
+    local cdromc=""
+  fi
+  case $frame in
+    "i386") local framec="qemu-system-i386" ;;
+    "x86") local framec="qemu-system-x86_64" ;;
+  esac
+  # Run
+  echo "${framec} -machine ${machine} -m ${mem} -smp ${smp} -hda ${hda} ${cdromc} -vnc $vncp"
+  ${framec} -machine ${machine} -m ${mem} -smp ${smp} -hda ${hda} ${cdromc} -vnc $vncp
 }
 
 main(){

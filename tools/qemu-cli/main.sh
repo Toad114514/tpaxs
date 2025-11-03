@@ -11,6 +11,7 @@ source $PREFIX/lib/tpaxs/global
 #    - 具体管理/运行 (接下来的实现)
 
 # 更新日志：
+#  v0.25 多架构支持，i386和x86-64 25.11.3
 #  v0.24 准备开工 manager2.sh
 #  v0.23.5 已完成测试 manager.sh，修复基础bug
 #  v0.23.2 完工 manager.sh 实现菜单显示
@@ -21,7 +22,7 @@ source $PREFIX/lib/tpaxs/global
 #  v0.1 完成基础 qemu 安装及检测功能（提示和报错都有模仿星野的说话语气呢~）
 
 
-qcli_ver="v0.23.5"
+qcli_ver="v0.25.1"
 qcli_status="dev"
 qcli_path="$tool_path/qemu-cli"
 qcli_vm_f="$conf_path/.qcli_vmfolder"
@@ -61,13 +62,18 @@ ins_qemu(){
   clear
   echo "================================ ${G}安装 Qemu${RES} ======"
   echo "选择一个 Qemu 软件包来安装，主要区别在于它们模拟的架构关系，架构的选择对应你要安装的系统。例如要装 64 位系统选择 x86-64，32 位则是 i386，请根据您要装的系统选择对应架构。"
-  echo "1) qemu-system-i386-headless ${G}(i386 架构)${RES}"
+  echo "1) qemu-system-i386-headless ${G}(i386 32位PC架构)${RES}"
+  echo "2) qemu-system-x86-64-headless ${G}(x86-64 64位PC架构)${RES}"
   echo "99) 不安装任何版本的 Qemu [默认选项]"
   echo "================================================="
   read -p "输入序号或对应架构名安装对应 Qemu 软件包：" package
   case $package in
-    "1"|"x86-64") 
+    "1"|"i386") 
       apt_echo qemu-system-i386-headless
+      apterr=$?
+      ;;
+    "2"|"x86-64")
+      apt_echo qemu-system-x86-64-headless
       apterr=$?
       ;;
     "99" | *)
@@ -111,6 +117,7 @@ check(){
 }
 
 main(){
+  clear
   echo "${R}Qemu${B}cli${RES} ${qcli_ver}"
   echo "非常简单的 Qemu 前端"
   echo "=================================="
@@ -124,6 +131,7 @@ main(){
   case $sel in
     "1") bash $qcli_path/create.sh ;;
     "2") bash $qcli_path/manager.sh ;; 
+    "3") ins_qemu ;;
     "99") exit 0 ;;
     *) : ;;
   esac

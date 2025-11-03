@@ -11,14 +11,49 @@ echo "虚拟机的文件夹将存储于 $qcli_vm_folder 里面"
 echo "==============================="
 
 read -p "您的虚拟机名字叫：" vmName
+echo ""
 
+# framework
+echo "${G}选择虚拟机架构：${RES}"
+echo "i386 - (32位PC) [默认选项]"
+echo "x86 - (64位PC)"
+echo "=============="
+read -p "输入对应架构名：" framework
+if [ -z ${framework} ];then
+  framework="i386"
+fi
+case $framework in
+  "i386")
+     pkg list-installed|grep qemu-system-i386 &>/dev/null
+     if [ ! $? -eq 0 ];then
+       tps_err "你还没有安装 i386 依赖！"
+       exit
+     fi
+     ;;
+  "x86")
+     pkg list-installed|grep qemu-system-x86-64 &>/dev/null
+     if [ ! $? -eq 0 ];then
+       tps_err "你还没有安装 x86-64 依赖！"
+       exit
+     fi
+     ;;
+  *)
+     tps_err "你输入了个78。"
+     exit
+     ;;
+esac
+echo ""
+
+# machine
 echo -e "\n选择一个虚拟机型号\n1) q35\n2) pc-i440fx-2.4 ${G}[默认]${RES}"
 read -p "输入序号：" machine
 case $machine in
   "1") machine="q35" ;;
   "2" | *) machine="pc-i440fx-2.4" ;;
 esac
+echo ""
 
+# Hardware / HDA
 read -p "分配内存大小（单位 MB）：" memory
 read -p "CPU核心数（建议只分配一个）：" smp
 echo -e "\n硬盘选择\n建一个新的还是使用已有的？\n1) 建一个新的   2) 使用已有的"
@@ -37,6 +72,7 @@ esac
 
 read -p "设置 CD-ROM 路径（iso镜像位置，留空不设置）：" cdrom
 
+# Display / Devices
 read -p "设置显卡（可选std、vmware等，默认std）：" video
 if [ -z $video ];then
   video=std
@@ -75,6 +111,7 @@ if [ ${err} -eq 0 ];then
 cat <<EOF >> ${qvmCreate}/qcli_conf.ini
 [qcli]
 name=${vmName}
+frame=${framework}
 machine=${machine}
 memory=${memory}
 smp=${smp}

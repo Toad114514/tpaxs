@@ -11,7 +11,7 @@ multi(){
   echo " 4) go-musicfox: 终端下的网易云音乐播放器"
   echo " 5) mpd: 简易的音乐播放器Deamon"
   echo "==========================="
-  input -p "sel/multimedia: " sel
+  read -p "sel/multimedia: " sel
   case $sel in
     "1") ins ffmpeg ;;
     "2") ins mpv ;;
@@ -33,7 +33,7 @@ x11(){
   echo " 6) pcmanfm-qt: 上面文件管理器的 Qt 版本"
   echo " 7) glmark2: GPU 跑分工具"
   echo "==========================="
-  input -p "sel/x11: " sel
+  read -p "sel/x11: " sel
   case $sel in
     "1") ins audacious ;;
     "2") ins gimp ;;
@@ -49,7 +49,7 @@ ins(){
   apt_echo $1
   echo "$1 安装完成，按下回车继续..."
   echo "Press ${Y}<Enter>${RES} to continue..."
-  input
+  read
   clear
 }
 
@@ -67,9 +67,9 @@ title(){
 }
 
 while [ 1 ]
-then
+do
   title
-  input -p "输入：" sel
+  read -p "输入：" sel
   case $sel in
     "1") multi ;;
     "2") dev ;;

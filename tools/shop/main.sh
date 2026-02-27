@@ -10,6 +10,7 @@ multi(){
   echo " 3) jp2a: 图片转 ascii 工具"
   echo " 4) go-musicfox: 终端下的网易云音乐播放器"
   echo " 5) mpd: 简易的音乐播放器Deamon"
+  echo " 6) timg: 终端多媒体播放工具"
   echo "==========================="
   read -p "sel/multimedia: " sel
   case $sel in
@@ -18,6 +19,7 @@ multi(){
     "3") ins jp2a ;;
     "4") ins go-musicfox ;;
     "5") ins mpd ;;
+    "6") ins timg ;;
   esac
 }
 
@@ -34,6 +36,7 @@ x11(){
   echo " 7) glmark2: GPU 跑分工具"
   echo " 8) vim-gtk: 图形化 vim"
   echo " 9) xclock: X 时钟"
+  echo " 10) smplayer: mplayer/mpv 播放器的前端"
   echo "==========================="
   read -p "sel/x11: " sel
   case $sel in
@@ -46,6 +49,7 @@ x11(){
     "7") ins glmark2 ;;
     "8") ins vim-gtk ;;
     "9") ins xorg-xclock ;;
+    "10") ins smplayer ;;
     *) : ;;
   esac
 }
@@ -59,6 +63,8 @@ dev(){
   echo " 3) neovim: vim 但是你可以给他装插件！"
   echo " 4) cmake: 友好的编译配置生成工具"
   echo " 5) python3: 友好简单的高级编程语言开发环境，初学者入坑代码必学"
+  echo " 6) openjdk: Java 开发环境"
+  echo " 7) golang: Go 语言编译器"
   echo "==========================="
   read -p "sel/dev: " sel
   case $sel in
@@ -67,6 +73,15 @@ dev(){
     "3") ins neovim ;;
     "4") ins cmake ;;
     "5") ins python3 ;;
+    "6") 
+       case $(input -p "请输入所要安装的 OpenJDK 版本\n输入其他版本号将返回 [11/17/21/25]:") in
+         "11") ins openjdk-11 ;;
+         "17") ins openjdk-17 ;;
+         "21") ins openjdk-21 ;;
+         "25") ins openjdk-25 ;;
+       esac
+    ;;
+    "7") ins golang ;;
     *) : ;;
   esac
 }
@@ -105,6 +120,7 @@ do
     "2") dev ;;
     "3") x11 ;;
     "4") game ;;
+    "5") terminal ;;
     "99") exit 0 ;;
     *) : ;;
   esac

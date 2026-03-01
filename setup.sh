@@ -113,14 +113,31 @@ setup_info(){
     "en-US"|*) read -p "${R}Do you want to${G}install tPaxs now？[${Y}Y${RES}/${B}N${RES}]" select ;;
   esac
   case "$select" in
-   "Y" | "y" | *) setup ;;
+   "Y" | "y") setup ;;
    "N" | "n")
      echo "放弃。"
      exit 1
      ;;
+   *) setup ;;
    esac
 }
 
+conf(){
+    conf_path="$PREFIX/lib/tpaxs/config"
+    if [ ! -e "$conf_path" ];then
+        echo "未检测到 $conf_path，很有可能您还未安装 tpaxs"
+    else
+        case $1 in
+          "add") echo $3 > "$conf_path/$2" ;;
+          "rm"|"remove") rm -rf "$conf_path/$2" ;;
+        esac
+    fi
+    exit 0
+}
+
+if [ ! -z $1 ];then
+    conf $1 $2 $3
+fi
 setup_banner
 setup_info
 config

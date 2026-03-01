@@ -14,6 +14,10 @@ echo "更新向导"
 sleep 1
 
 remoteu(){
+  git remote add origin https://github.com/toad114514/tpaxs &>/dev/null
+  git remote add gitee https://gitee.com/toadstool/tpaxs &>/dev/null
+  git remote set-url origin https://github.com/toad114514/tpaxs &>/dev/null
+  git remote set-url gitee https://gitee.com/toadstool/tpaxs &>/dev/null
   echo "注意事项："
   echo "如果中间出现非网络原因的错误信息时，请尝试输入 ${Y}mv \$PREFIX/lib/tpaxs_backup \$PREFIX/lib/tpaxs${RES} 恢复原先的 tpaxs 版本。"
   echo "================================="
@@ -47,7 +51,7 @@ remoteu(){
       tps_info "您的 tPaxs 目前是最新提交版本！无需更新"
     else
       echo -e "\n===============================\n${Y}更新到 ${G}${rcommit} ${Y}提交后的所有提交内容：${RES}"
-      git --no-pager log --pretty=format:"%h - %an, %ar : %s" "$lcommit..$rcommit"
+      git --no-pager log --pretty=format:"%h, %ar : %s" "$lcommit..$rcommit"
       echo -e "\n==============================="
       read -p $'\n是否确认更新？(y/n) ' confirm
       if [[ ! "$confirm" =~ ^[Yy]$ ]]; then

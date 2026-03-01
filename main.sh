@@ -1,5 +1,9 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
+if [[ ! -e $PREFIX/lib/tpaxs || -f $PREFIX/lib/tpaxs ]];then
+    echo -e "\033[31mtpaxs 未安装或未正确安装。请运行一次 ./setup.sh 然后再运行 tpaxs。"
+    exit 100
+fi
 source $PREFIX/lib/tpaxs/global
 
 tps_banner(){
@@ -251,11 +255,16 @@ if [ ! -z "$1" ];then
     *) command_input $1 $2 $3 $4 $5 $6 $7 $8 $9 && exit 0 ;;
   esac
 fi
+
+#dd
 tps_banner
 tps_check
 sleep 1
+
+# cmdline
 while [ 1 ]
 do
-  read -p "${G}${users}&${BOLD}/tpaxs ${G}$: ${RES}" command
+  cmdhead="${G}${users}&${BOLD}/tpaxs ${G}$: ${RES}"
+  read -r -p "$cmdhead" command
   command_input $command
 done

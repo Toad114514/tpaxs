@@ -105,7 +105,16 @@ help_find(){
           esac   
           local ver=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'ver'/{print $2;exit}' $f/info.ini)
           local coms=$(echo $f|sed 's?/data/data/com.termux/files/usr/lib/tpaxs/tools/??')
-          echo "${G}${BOLD}$coms: ${Y}$name${B}[$ver]${RES}"
+          
+          local state=$(awk -F "=" '/\['tpaxs'\]/{a=1}a==1&&$1~/'state'/{print $2;exit}' $f/info.ini)
+          if [ "$state" == "wip" ];then state="${Y}(WIP)${RES}"
+          elif [ "$state" == "beta" ];then state="${Y}(Beta)${RES}"
+          elif [ "$state" == "rel" ];then state="${G}(Release)${RES}"
+          else
+            state=""
+          fi
+          
+          echo "${G}${BOLD}$coms: ${Y}$name${B}[$ver] ${state}${RES}"
           echo "   ${desc}"
           canuse=`expr $canuse + 1`
         fi

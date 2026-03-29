@@ -165,7 +165,7 @@ opentools(){
           else
             local depends=(${depend//,/ })
             for package in ${depends[@]};do
-              pkg list-installed|grep $package &>/dev/null
+              apt-cache pkgnames|grep $package &>/dev/null
               if [ ! $? = 0 ];then
                 apt_echo $package
               fi

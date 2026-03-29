@@ -86,9 +86,34 @@ dev(){
   esac
 }
 
+game(){
+  echo "==========================="
+  echo "     ${Y}Games${RES}"
+  echo "==========================="
+  echo " 1) 2048-c: 经典2048游戏，但是在终端"
+  echo " 2) nsnake: 贪吃蛇？！"
+  echo " 3) nethack: 地牢解密游戏"
+  echo "==========================="
+  read -p "sel/game: " sel
+  case $sel in
+    "1") ins 2048-c ;;
+    "2") ins nsnake "蛇" ;;
+    "3") ins nethack ;;
+  esac
+
+}
+
 ins(){
+  if [ ! -z "$(apt-cache pkgnames|grep $1)" ];then
+    echo "${Y}您已经安装了 $1，按下回车键继续...${RES}"
+    read
+    return 78
+  fi
   apt_echo $1
-  echo "$1 安装完成，按下回车继续..."
+  echo "${G}$1 安装完成，按下回车继续...${RES}"
+  if [ ! -z "$2" ];then
+    echo "提示：$2"
+  fi
   echo "Press ${Y}<Enter>${RES} to continue..."
   read
   clear
